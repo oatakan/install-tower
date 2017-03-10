@@ -1,0 +1,10 @@
+---
+## This playbook deploys ansible tower.
+
+- hosts: tower
+  become: yes
+  become_user: root
+  roles:
+  - Aplyca.AnsibleTower
+
+
