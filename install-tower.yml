@@ -5,5 +5,5 @@
   become: yes
   become_user: root
   roles:
-  - rhn
+  - ansible-role-rhn
   - Aplyca.AnsibleTower
