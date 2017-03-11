@@ -1,5 +1,4 @@
 - src: Aplyca.AnsibleTower
 
 - src: https://github.com/sumerli/ansible-role-rhn
-  version: master
   name: rhn
