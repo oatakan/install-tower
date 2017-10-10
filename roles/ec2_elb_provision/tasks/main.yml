@@ -48,7 +48,7 @@
       - protocol: https
         load_balancer_port: 443
         instance_port: 443
-        ssl_certificate_id: "	arn:aws:acm:us-east-1:324218975267:certificate/f863516c-74e5-4cd3-bd07-09a6fc56d6a9"
+        ssl_certificate_id: "arn:aws:acm:us-east-1:324218975267:certificate/f863516c-74e5-4cd3-bd07-09a6fc56d6a9"
     tags:
       name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
       role: "{{ role_name }}"
