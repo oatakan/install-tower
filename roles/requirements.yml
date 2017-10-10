@@ -1,3 +1,6 @@
 - src: Aplyca.AnsibleTower
 
-- src: https://github.com/sumerli/ansible-role-rhn
+- src: https://github.com/oatakan/ansible-role-rhn
+
+- src: https://github.com/oatakan/ansible-role-ec2
+  version: origin/master
