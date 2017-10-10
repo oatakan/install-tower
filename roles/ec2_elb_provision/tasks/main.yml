@@ -21,11 +21,9 @@
       - protocol: http
         load_balancer_port: 80
         instance_port: 80
-        proxy_protocol: True
       - protocol: https
         load_balancer_port: 443
         instance_port: 443
-        proxy_protocol: True
     tags:
       name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
       role: "{{ role_name }}"
