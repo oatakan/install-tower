@@ -1,12 +1,12 @@
 - name: set targets from list
   set_fact:
-    targets-http: "{{ targets-http|default([]) + [ {'Id': hostvars[item].ec2_id, 'Port': 80 } ] }}"
-    targets-https: "{{ targets-https|default([]) + [ {'Id': hostvars[item].ec2_id, 'Port': 443 } ] }}"
+    targets_http: "{{ targets_http|default([]) + [ {'Id': hostvars[item].ec2_id, 'Port': 80 } ] }}"
+    targets_https: "{{ targets_https|default([]) + [ {'Id': hostvars[item].ec2_id, 'Port': 443 } ] }}"
   with_items: "{{ play_hosts }}"
   run_once: yes
 
 - debug:
-    var: targets-http
+    var: targets_http
   run_once: yes
 
 - name: create elb target group https
@@ -18,7 +18,7 @@
     vpc_id: "{{ ec2_vpc_id }}"
     health_check_path: /
     successful_response_codes: "200,250-260"
-    targets: "{{ targets-https }}"
+    targets: "{{ targets_https }}"
     state: present
     tags:
       name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-443"
@@ -36,7 +36,7 @@
     vpc_id: "{{ ec2_vpc_id }}"
     health_check_path: /
     successful_response_codes: "200,250-260"
-    targets: "{{ targets-http }}"
+    targets: "{{ targets_http }}"
     state: present
     tags:
       name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-80"
