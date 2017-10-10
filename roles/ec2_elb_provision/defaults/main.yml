@@ -1,3 +1,4 @@
 ec2_name_prefix: demo
 role_name: elb_role
 app_name: test_app
+ec2_cert_id: test

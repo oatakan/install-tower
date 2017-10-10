@@ -5,10 +5,6 @@
   with_items: "{{ play_hosts }}"
   run_once: yes
 
-- debug:
-    msg: "{{ instance_ids | map(attribute='id') | list }}"
-  run_once: yes
-
 - name: ceate ec2 security group
   ec2_group:
     name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
@@ -45,10 +41,13 @@
     subnets:
       - "{{ ec2_vpc_subnet_id }}"
     listeners:
+      - protocol: http
+        load_balancer_port: 80
+        instance_port: 80
       - protocol: https
         load_balancer_port: 443
         instance_port: 443
-        ssl_certificate_id: "arn:aws:acm:us-east-1:324218975267:certificate/f863516c-74e5-4cd3-bd07-09a6fc56d6a9"
+        ssl_certificate_id: "{{ ec2_cert_id }}"
     tags:
       name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
       role: "{{ role_name }}"
