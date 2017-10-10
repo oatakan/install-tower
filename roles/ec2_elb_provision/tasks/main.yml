@@ -7,13 +7,14 @@
 
 - debug:
     msg: "{{ instance_ids | map(attribute='id') | list }}"
+  run_once: yes
 
 - name: provision a new ec2 elb lb
   ec2_elb_lb:
     name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
     state: present
     region: "{{ ec2_region }}"
-    instance_ids: "{{ instance_ids | map(attribute='id') | list }}"
+    #instance_ids: "{{ instance_ids | map(attribute='id') | list }}"
     subnets:
       - "{{ ec2_vpc_subnet_id }}"
     listeners:
@@ -33,15 +34,15 @@
   delegate_to: 127.0.0.1
   run_once: yes
 
-#- name: add instances to elb
-#  ec2_elb:
-#    state: present
-#    ec2_elbs: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
-#    region: "{{ item.ec2_region }}"
-#    instance_id: "{{ item.ec2_id }}"
-#  with_items: "{{ play_hosts }}"
-#  delegate_to: 127.0.0.1
-#  run_once: yes
+- name: add instances to elb
+  ec2_elb:
+    state: present
+    ec2_elbs: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
+    region: "{{ item.ec2_region }}"
+    instance_id: "{{ item.ec2_id }}"
+  with_items: "{{ play_hosts }}"
+  delegate_to: 127.0.0.1
+  run_once: yes
 
 - debug:
     var: elb_lb
