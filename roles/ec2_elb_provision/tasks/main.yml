@@ -8,11 +8,6 @@
 - debug:
     msg: "{{ instance_ids | map(attribute='id') | list }}"
 
-- debug:
-    msg: "{{ play_hosts | map(attribute='ec2_id') | list }}"
-
-- pause:
-
 - name: provision a new ec2 elb lb
   ec2_elb_lb:
     name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
