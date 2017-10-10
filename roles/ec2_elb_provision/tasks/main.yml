@@ -18,9 +18,9 @@
     subnets:
       - "{{ ec2_vpc_subnet_id }}"
     listeners:
-      - protocol: http
-        load_balancer_port: 80
-        instance_port: 80
+      - protocol: https
+        load_balancer_port: 443
+        instance_port: 443
     tags:
       name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
       role: "{{ role_name }}"
@@ -32,7 +32,8 @@
 - name: add instances to elb
   ec2_elb:
     state: present
-    ec2_elbs: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
+    ec2_elbs:
+      - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
     region: "{{ item.ec2_region }}"
     instance_id: "{{ item.ec2_id }}"
   with_items: "{{ play_hosts }}"
