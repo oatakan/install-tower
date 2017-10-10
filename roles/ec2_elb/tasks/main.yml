@@ -8,7 +8,7 @@
 
 - name: create elb target group https
   elb_target_group:
-    name: "{{ ec2_name_prefix }}-{{ app_name }}-elb-tg-443"
+    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-443"
     protocol: https
     port: 443
     region: "{{ ec2_region }}"
@@ -18,14 +18,14 @@
     targets: "{{ targets }}"
     state: present
     tags:
-      name: "{{ ec2_name_prefix }}-{{ app_name }}-elb-tg-443"
+      name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-443"
       role: "{{ role_name }}"
       app: "{{ app_name }}"
   delegate_to: 127.0.0.1
 
 - name: create elb target group http
   elb_target_group:
-    name: "{{ ec2_name_prefix }}-{{ app_name }}-elb-tg-80"
+    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-80"
     protocol: http
     port: 80
     region: "{{ ec2_region }}"
@@ -35,14 +35,14 @@
     targets: "{{ targets }}"
     state: present
     tags:
-      name: "{{ ec2_name_prefix }}-{{ app_name }}-elb-tg-80"
+      name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-80"
       role: "{{ role_name }}"
       app: "{{ app_name }}"
   delegate_to: 127.0.0.1
 
 - name: ceate ec2 security group
   ec2_group:
-    name: "{{ ec2_name_prefix }}-{{ app_name }}-elb-sg"
+    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
     description: allow http and https
     region: "{{ ec2_region }}"
     vpc_id: "{{ ec2_vpc_id }}"
@@ -59,16 +59,16 @@
       - proto: all
         cidr_ip: 0.0.0.0/0
     tags:
-      name: "{{ ec2_name_prefix }}-{{ app_name }}-elb-sg"
+      name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
       role: "{{ role_name }}"
       app: "{{ app_name }}"
   delegate_to: 127.0.0.1
 
 - name: create elb application lb
   elb_application_lb:
-    name: "{{ ec2_name_prefix }}-{{ app_name }}-elb-lb"
+    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
     security_groups:
-      - "{{ ec2_name_prefix }}-{{ app_name }}-elb-sg"
+      - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
     subnets:
       - "{{ ec2_vpc_subnet_id }}"
     listeners:
@@ -80,7 +80,7 @@
           - CertificateArn: arn:aws:iam::12345678987:server-certificate/test.domain.com
         DefaultActions:
           - Type: forward # Required. Only 'forward' is accepted at this time
-            TargetGroupName: "{{ ec2_name_prefix }}-{{ app_name }}-elb-tg-80"
+            TargetGroupName: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-80"
       - Protocol: HTTPS
         Port: 443
         # The security policy that defines which ciphers and protocols are supported. The default is the current predefined security policy.
@@ -89,6 +89,6 @@
           - CertificateArn: arn:aws:iam::12345678987:server-certificate/test.domain.com
         DefaultActions:
           - Type: forward # Required. Only 'forward' is accepted at this time
-            TargetGroupName: "{{ ec2_name_prefix }}-{{ app_name }}-elb-tg-443"
+            TargetGroupName: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-443"
     state: present
   delegate_to: 127.0.0.1
