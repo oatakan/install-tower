@@ -1,0 +1,30 @@
+---
+- name: remove elb target group https
+  elb_target_group:
+    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-443"
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ ec2_vpc_id }}"
+    state: absent
+  delegate_to: 127.0.0.1
+  run_once: yes
+
+- name: remove elb target group http
+  elb_target_group:
+    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-80"
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ ec2_vpc_id }}"
+    state: absent
+  delegate_to: 127.0.0.1
+  run_once: yes
+
+- name: remove ec2 security group
+  ec2_group:
+    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
+    description: allow http and https
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ ec2_vpc_id }}"
+    state: absent
+  delegate_to: 127.0.0.1
+  run_once: yes
+
+

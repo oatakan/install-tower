@@ -5,4 +5,4 @@
     app_name: tower_clustered
     role_name: tower_elb
   roles:
-    - ec2_elb_provision
+    - ec2_elb_remove
