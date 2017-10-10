@@ -1,7 +1,5 @@
 ---
-## This playbook deploys ansible tower.
-
-- hosts: database
+- hosts: tower:database
   become: yes
   vars:
     postgresql_databases:
