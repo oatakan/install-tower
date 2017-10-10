@@ -1,5 +1,8 @@
 ---
 - hosts: tower:instance_group_*
   become: no
+  vars:
+    app_name: tower_clustered
+    role_name: tower_elb
   tasks:
     - ec2_elb
