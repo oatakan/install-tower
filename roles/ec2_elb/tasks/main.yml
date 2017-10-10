@@ -3,9 +3,11 @@
     targets-http: "{{ targets|default([]) + [ {'Id': hostvars[item].ec2_id, 'Port': 80 } ] }}"
     targets-https: "{{ targets|default([]) + [ {'Id': hostvars[item].ec2_id, 'Port': 443 } ] }}"
   with_items: "{{ play_hosts }}"
+  run_once: yes
 
 - debug:
     var: targets
+  run_once: yes
 
 - name: create elb target group https
   elb_target_group:
@@ -23,6 +25,7 @@
       role: "{{ role_name }}"
       app: "{{ app_name }}"
   delegate_to: 127.0.0.1
+  run_once: yes
 
 - name: create elb target group http
   elb_target_group:
@@ -40,6 +43,7 @@
       role: "{{ role_name }}"
       app: "{{ app_name }}"
   delegate_to: 127.0.0.1
+  run_once: yes
 
 - name: ceate ec2 security group
   ec2_group:
@@ -64,6 +68,7 @@
       role: "{{ role_name }}"
       app: "{{ app_name }}"
   delegate_to: 127.0.0.1
+  run_once: yes
 
 - name: create elb application lb
   elb_application_lb:
@@ -94,6 +99,8 @@
     state: present
   delegate_to: 127.0.0.1
   register: elb_lb
+  run_once: yes
 
 - debug:
     var: elb_lb
+  run_once: yes
