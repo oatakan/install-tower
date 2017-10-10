@@ -9,11 +9,6 @@
   poll: 0
 
 - name: wait for instance
-  delegate_to: localhost
-  become: no
-  wait_for:
-    port: "{{ ssh_port }}"
-    host: "{{ ansible_host }}"
-    search_regex: OpenSSH
+  wait_for_connection:
     timeout: 500
     delay: 40
