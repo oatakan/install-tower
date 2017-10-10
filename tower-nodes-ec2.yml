@@ -21,7 +21,7 @@ nodes:
         volume_size: 20
         delete_on_termination: true
   - name: towerdb
-    role: tower
+    role: towerdb
     app_name: tower_clustered
     instance_type: t2.medium
     image: ami-85241def #rhel7-tower
