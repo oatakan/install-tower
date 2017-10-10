@@ -77,6 +77,7 @@
       - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
     subnets:
       - "{{ ec2_vpc_subnet_id }}"
+    region: "{{ ec2_region }}"
     listeners:
       - Protocol: HTTP
         Port: 80
