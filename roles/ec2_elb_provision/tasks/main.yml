@@ -1,105 +1,34 @@
-- name: set targets from list
-  set_fact:
-    targets_http: "{{ targets_http|default([]) + [ {'Id': hostvars[item].ec2_id, 'Port': 80 } ] }}"
-    targets_https: "{{ targets_https|default([]) + [ {'Id': hostvars[item].ec2_id, 'Port': 443 } ] }}"
-  with_items: "{{ play_hosts }}"
-  run_once: yes
-
-- debug:
-    var: targets_http
-  run_once: yes
-
-- name: create elb target group https
-  elb_target_group:
-    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-443"
-    protocol: https
-    port: 443
-    region: "{{ ec2_region }}"
-    vpc_id: "{{ ec2_vpc_id }}"
-    health_check_path: /
-    successful_response_codes: "200,250-260"
-    targets: "{{ targets_https }}"
-    state: present
-    tags:
-      name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-443"
-      role: "{{ role_name }}"
-      app: "{{ app_name }}"
-  delegate_to: 127.0.0.1
-  run_once: yes
-
-- name: create elb target group http
-  elb_target_group:
-    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-80"
-    protocol: http
-    port: 80
-    region: "{{ ec2_region }}"
-    vpc_id: "{{ ec2_vpc_id }}"
-    health_check_path: /
-    successful_response_codes: "200,250-260"
-    targets: "{{ targets_http }}"
-    state: present
-    tags:
-      name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-80"
-      role: "{{ role_name }}"
-      app: "{{ app_name }}"
-  delegate_to: 127.0.0.1
-  run_once: yes
-
-- name: ceate ec2 security group
-  ec2_group:
-    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
-    description: allow http and https
-    region: "{{ ec2_region }}"
-    vpc_id: "{{ ec2_vpc_id }}"
-    rules:
-      - proto: tcp
-        from_port: 80
-        to_port: 80
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 443
-        to_port: 443
-        cidr_ip: 0.0.0.0/0
-    rules_egress:
-      - proto: all
-        cidr_ip: 0.0.0.0/0
-    tags:
-      name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
-      role: "{{ role_name }}"
-      app: "{{ app_name }}"
-  delegate_to: 127.0.0.1
-  run_once: yes
-
-- name: create elb application lb
-  elb_application_lb:
+---
+- name: provision a new ec2 elb lb
+  ec2_elb_lb:
     name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
-    security_groups:
-      - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
-    subnets:
-      - "{{ ec2_vpc_subnet_id }}"
+    state: present
     region: "{{ ec2_region }}"
     listeners:
-      - Protocol: HTTP
-        Port: 80
-        # The security policy that defines which ciphers and protocols are supported. The default is the current predefined security policy.
-        SslPolicy: ELBSecurityPolicy-2015-05
-        Certificates: # The ARN of the certificate (only one certficate ARN should be provided)
-          - CertificateArn: arn:aws:iam::12345678987:server-certificate/test.domain.com
-        DefaultActions:
-          - Type: forward # Required. Only 'forward' is accepted at this time
-            TargetGroupName: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-80"
-      - Protocol: HTTPS
-        Port: 443
-        # The security policy that defines which ciphers and protocols are supported. The default is the current predefined security policy.
-        SslPolicy: ELBSecurityPolicy-2015-05
-        Certificates: # The ARN of the certificate (only one certficate ARN should be provided)
-          - CertificateArn: arn:aws:iam::12345678987:server-certificate/test.domain.com
-        DefaultActions:
-          - Type: forward # Required. Only 'forward' is accepted at this time
-            TargetGroupName: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-tg-443"
-    state: present
-  delegate_to: 127.0.0.1
+      - protocol: http
+        load_balancer_port: 80
+        instance_port: 80
+        proxy_protocol: True
+      - protocol: https
+        load_balancer_port: 443
+        instance_port: 443
+        proxy_protocol: True
+    tags:
+      name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
+      role: "{{ role_name }}"
+      app: "{{ app_name }}"
   register: elb_lb
+  delegate_to: 127.0.0.1
+  run_once: yes
+
+- name: add instances to elb
+  ec2_elb:
+    state: present
+    ec2_elbs: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
+    region: "{{ item.ec2_region }}"
+    instance_id: "{{ item.ec2_id }}"
+  with_items: "{{ play_hosts }}"
+  delegate_to: 127.0.0.1
   run_once: yes
 
 - debug:
