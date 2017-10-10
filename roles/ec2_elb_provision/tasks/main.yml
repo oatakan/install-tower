@@ -9,12 +9,39 @@
     msg: "{{ instance_ids | map(attribute='id') | list }}"
   run_once: yes
 
+- name: ceate ec2 security group
+  ec2_group:
+    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
+    description: allow http and https
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ ec2_vpc_id }}"
+    rules:
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+    tags:
+      name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
+      role: "{{ role_name }}"
+      app: "{{ app_name }}"
+  delegate_to: 127.0.0.1
+  run_once: yes
+
 - name: provision a new ec2 elb lb
   ec2_elb_lb:
     name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
     state: present
     region: "{{ ec2_region }}"
     #instance_ids: "{{ instance_ids | map(attribute='id') | list }}"
+    security_group_names:
+      - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
     subnets:
       - "{{ ec2_vpc_subnet_id }}"
     listeners:
