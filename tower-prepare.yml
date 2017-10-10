@@ -1,0 +1,13 @@
+---
+## This playbook deploys ansible tower.
+
+- hosts: database
+  become: yes
+  vars:
+    postgresql_databases:
+      - name: "{{ pg_database }}"
+    postgresql_users:
+      - name: "{{ pg_username }}"
+        password: "{{ pg_password }}"
+  roles:
+  - geerlingguy.postgresql
