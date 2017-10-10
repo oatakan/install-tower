@@ -1,0 +1,5 @@
+---
+- hosts: tower:instance_group_*
+  become: no
+  tasks:
+    - ec2_elb
