@@ -32,7 +32,7 @@ nodes:
         delete_on_termination: true
   - name: towerisa
     role: isolated_remote
-    app_name: tower_clustered
+    app_name: tower_isolated
     instance_type: t2.medium
     image: ami-85241def #rhel7-tower
     volumes:
@@ -42,7 +42,7 @@ nodes:
         delete_on_termination: true
   - name: towerisb
     role: isolated_remote
-    app_name: tower_clustered
+    app_name: tower_isolated
     instance_type: t2.medium
     image: ami-85241def #rhel7-tower
     volumes:
