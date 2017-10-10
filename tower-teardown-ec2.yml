@@ -7,7 +7,6 @@
         filters:
           vpc-id: "{{ ec2_vpc_id }}"
           "tag:app": tower_clustered
-          "tag:app": tower_isolated
       register: ec2_instances
 
     - name: terminate instances
