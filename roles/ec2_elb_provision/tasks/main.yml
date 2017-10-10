@@ -45,9 +45,10 @@
     subnets:
       - "{{ ec2_vpc_subnet_id }}"
     listeners:
-      - protocol: http
-        load_balancer_port: 80
-        instance_port: 80
+      - protocol: https
+        load_balancer_port: 443
+        instance_port: 443
+        ssl_certificate_id: "arn:aws:iam::123456789012:server-certificate/company/servercerts/ProdServerCert"
     tags:
       name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
       role: "{{ role_name }}"
