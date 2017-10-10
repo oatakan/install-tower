@@ -6,10 +6,10 @@
   run_once: yes
 
 - debug:
-    var: "{{ instance_ids | map(attribute='id') | list }}"
+    msg: "{{ instance_ids | map(attribute='id') | list }}"
 
 - debug:
-    var: "{{ play_hosts | map(attribute='ec2_id') | list }}"
+    msg: "{{ play_hosts | map(attribute='ec2_id') | list }}"
 
 - pause:
 
