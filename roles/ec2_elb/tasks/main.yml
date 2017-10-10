@@ -6,7 +6,7 @@
   run_once: yes
 
 - debug:
-    var: targets
+    var: targets-http
   run_once: yes
 
 - name: create elb target group https
