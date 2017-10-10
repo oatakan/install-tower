@@ -11,4 +11,4 @@
         password: "{{ pg_password }}"
   roles:
   - common
-  - geerlingguy.postgresql
+  #- geerlingguy.postgresql
