@@ -24,6 +24,8 @@
     name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
     state: absent
     region: "{{ ec2_region }}"
+    wait: yes
+    wait_timeout: 600
 
 - name: remove ec2 security group
   ec2_group:
