@@ -43,7 +43,7 @@
     name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
     state: present
     region: "{{ ec2_region }}"
-    #instance_ids: "{{ instance_ids | map(attribute='id') | list }}"
+    instance_ids: "{{ instance_ids | map(attribute='id') | list }}"
     security_group_names:
       - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
     subnets:
@@ -74,16 +74,16 @@
   delegate_to: 127.0.0.1
   run_once: yes
 
-- name: add instances to elb
-  ec2_elb:
-    state: present
-    ec2_elbs:
-      - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
-    region: "{{ item.region }}"
-    instance_id: "{{ item.id }}"
-  with_items: "{{ instance_ids }}"
-  delegate_to: 127.0.0.1
-  run_once: yes
+#- name: add instances to elb
+#  ec2_elb:
+#    state: present
+#    ec2_elbs:
+#      - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
+#    region: "{{ item.region }}"
+#    instance_id: "{{ item.id }}"
+#  with_items: "{{ instance_ids }}"
+#  delegate_to: 127.0.0.1
+#  run_once: yes
 
 - name: create router ELB DNS entry if it doesn't exist
   route53:
