@@ -74,16 +74,6 @@
     var: elb_lb
   run_once: yes
 
-- name: Get record for router ELB DNS Entry
-  route53:
-    command: get
-    zone: "{{ hosted_zone_domain_name }}"
-    record: "{{ subdomain }}.{{ ec2_name_prefix | lower }}.{{ hosted_zone_domain_name }}"
-    type: A
-  register: routerelbrec
-  delegate_to: 127.0.0.1
-  run_once: yes
-
 - name: create router ELB DNS rntry if it doesn't exist
   route53:
     state: present
@@ -92,6 +82,6 @@
     type: A
     value: "{{ elb_lb.elb.dns_name }}"
     alias: True
-    alias_hosted_zone_id: "{{ routerelb.elb.hosted_zone_id }}"
+    alias_hosted_zone_id: "{{ elb_lb.elb.hosted_zone_id }}"
   delegate_to: 127.0.0.1
   run_once: yes
