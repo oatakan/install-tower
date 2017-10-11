@@ -17,7 +17,7 @@
     value: "{{ routerelbrec.set.value }}"
     alias: True
     alias_hosted_zone_id: "{{ routerelbrec.set.alias_hosted_zone_id }}"
-  when: routerelbrec.set is defined and "{} != routerelbrec.set"
+  when: routerelbrec.set is defined and "{} != routerelbrec.set" and routerelbrec.set.alias_hosted_zone_id is defined
 
 - name: remove ec2 elb lb
   ec2_elb_lb:
