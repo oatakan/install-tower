@@ -35,7 +35,7 @@
     name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
     state: present
     region: "{{ ec2_region }}"
-    instance_ids: "{{ instance_ids | map(attribute='id') | list }}"
+    #instance_ids: "{{ instance_ids | map(attribute='id') | list }}"
     security_group_names:
       - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
     subnets:
@@ -44,9 +44,11 @@
       - protocol: http
         load_balancer_port: 80
         instance_port: 80
+        proxy_protocol: True
       - protocol: https
         load_balancer_port: 443
         instance_port: 443
+        proxy_protocol: True
         ssl_certificate_id: "{{ ec2_cert_id }}"
     tags:
       name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
