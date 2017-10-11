@@ -82,6 +82,8 @@
     type: A
   register: routerelbrec
   when: hosted_zone_domain_name is defined and subdomain is defined
+  delegate_to: 127.0.0.1
+  run_once: yes
 
 - name: create Router ELB DNS Entry if it doesn't exist
   route53:
@@ -93,3 +95,5 @@
     type: A
     value: "{{ elb_lb.elb.dns_name }}"
   when: routerelbrec.set is defined and "{} == routerelbrec.set"
+  delegate_to: 127.0.0.1
+  run_once: yes
