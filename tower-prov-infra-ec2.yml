@@ -1,6 +1,6 @@
 - hosts: localhost
   become: no
   vars_files:
-    - tower-nodes-ec2.yml
+    - tower-nodes-ec2-{{ ec2_region }}.yml
   roles:
     - ansible-role-ec2

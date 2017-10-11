@@ -12,14 +12,6 @@
     region: "{{ ec2_region }}"
     vpc_id: "{{ ec2_vpc_id }}"
     rules:
-      #- proto: udp
-      #  from_port: 0
-      #  to_port: 65535
-      #  cidr_ip: 0.0.0.0/0
-      #- proto: tcp
-      #  from_port: 0
-      #  to_port: 65535
-      #  cidr_ip: 0.0.0.0/0
       - proto: tcp
         from_port: 80
         to_port: 80
@@ -61,7 +53,6 @@
     health_check:
       ping_protocol: tcp # options are http, https, ssl, tcp
       ping_port: 443
-      #ping_path: "/index.html" # not required for tcp or ssl
       response_timeout: 5 # seconds
       interval: 10 # seconds
       unhealthy_threshold: 2
