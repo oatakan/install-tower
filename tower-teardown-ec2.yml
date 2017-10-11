@@ -1,6 +1,11 @@
 - hosts: localhost
   become: no
-  tasks:
+  vars:
+    app_name: tower_clustered
+    role_name: tower_elb
+  roles:
+    - ec2_elb_remove
+  post_tasks:
     - name: get ec2 instance information
       ec2_remote_facts:
         region: "{{ ec2_region }}"
