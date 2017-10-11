@@ -40,6 +40,7 @@
       - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
     subnets:
       - "{{ ec2_vpc_subnet_id }}"
+    purge_instance_ids: true
     listeners:
       - protocol: http
         load_balancer_port: 80
