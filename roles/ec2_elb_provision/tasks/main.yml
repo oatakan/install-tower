@@ -31,14 +31,6 @@
     rules_egress:
       - proto: all
         cidr_ip: 0.0.0.0/0
-    health_check:
-      ping_protocol: tcp # options are http, https, ssl, tcp
-      ping_port: 443
-      #ping_path: "/index.html" # not required for tcp or ssl
-      response_timeout: 5 # seconds
-      interval: 10 # seconds
-      unhealthy_threshold: 2
-      healthy_threshold: 2
     tags:
       name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-sg"
       role: "{{ role_name }}"
@@ -68,6 +60,14 @@
         instance_port: 443
         proxy_protocol: True
         ssl_certificate_id: "{{ ec2_cert_id }}"
+    health_check:
+      ping_protocol: tcp # options are http, https, ssl, tcp
+      ping_port: 443
+      #ping_path: "/index.html" # not required for tcp or ssl
+      response_timeout: 5 # seconds
+      interval: 10 # seconds
+      unhealthy_threshold: 2
+      healthy_threshold: 2
     tags:
       name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
       role: "{{ role_name }}"
