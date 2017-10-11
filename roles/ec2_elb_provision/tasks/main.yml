@@ -41,6 +41,7 @@
     subnets:
       - "{{ ec2_vpc_subnet_id }}"
     purge_instance_ids: true
+    cross_az_load_balancing: yes
     listeners:
       - protocol: http
         load_balancer_port: 80
