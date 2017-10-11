@@ -51,15 +51,13 @@
     purge_instance_ids: true
     cross_az_load_balancing: yes
     listeners:
-      - protocol: http
+      - protocol: tcp
         load_balancer_port: 80
         instance_port: 80
-        proxy_protocol: True
-      - protocol: https
+      - protocol: tcp
         load_balancer_port: 443
         instance_port: 443
-        proxy_protocol: True
-        ssl_certificate_id: "{{ ec2_cert_id }}"
+        #ssl_certificate_id: "{{ ec2_cert_id }}"
     health_check:
       ping_protocol: tcp # options are http, https, ssl, tcp
       ping_port: 443
