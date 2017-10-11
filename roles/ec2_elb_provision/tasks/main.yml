@@ -94,6 +94,7 @@
 - name: create router ELB DNS rntry if it doesn't exist
   route53:
     state: present
+    overwrite: yes
     zone: "{{ hosted_zone_domain_name }}"
     record: "{{ subdomain }}.{{ ec2_name_prefix | lower }}.{{ hosted_zone_domain_name }}"
     type: A
