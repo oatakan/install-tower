@@ -73,3 +73,23 @@
 - debug:
     var: elb_lb
   run_once: yes
+
+- name: get record for router ELB DNS Entry
+  route53:
+    command: get
+    zone: "{{ hosted_zone_domain_name }}"
+    record: "{{ subdomain }}.{{ hosted_zone_domain_name }}"
+    type: A
+  register: routerelbrec
+  when: hosted_zone_domain_name is defined and subdomain is defined
+
+- name: create Router ELB DNS Entry if it doesn't exist
+  route53:
+    #state: present ## Added in Ansible 2.4 will remove need for when statement below
+    command: create
+    overwrite: yes
+    zone: "{{ hosted_zone_domain_name }}"
+    record: "{{ subdomain }}.{{ hosted_zone_domain_name }}"
+    type: A
+    value: "{{ elb_lb.elb.dns_name }}"
+  when: routerelbrec.set is defined and "{} == routerelbrec.set"
