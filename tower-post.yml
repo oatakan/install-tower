@@ -1,5 +1,5 @@
 ---
-- hosts: tower:instance_group_east:!*_west
+- hosts: tower:instance_group_*
   become: no
   vars:
     app_name: tower_clustered
