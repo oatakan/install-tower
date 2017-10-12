@@ -6,9 +6,10 @@
 
 - debug:
     msg: "{{ item[1] }}"
-  with_subelements:
+  delegate_to: "{{ item[0] }}"
+  with_nested:
     - "{{ play_hosts }}"
-    - "{{ hostvars[item[0]].group_names }}"
+    - "{{ group_names }}"
   run_once: yes
 
 - name: Determine instance groups for host
