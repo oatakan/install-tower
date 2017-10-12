@@ -15,7 +15,7 @@
   run_once: yes
 
 - include: elb.yml instance_group='{{ include_item }}'
-  with_items: "{{ hostvars[groups['tower'][0]].awx_instance_groups }}"
+  with_items: "{{ awx_instance_groups }}"
   loop_control:
     loop_var: include_item
   run_once: yes
