@@ -9,10 +9,10 @@
     awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item|regex_replace('^instance_group_','') }}' ]"
   with_items: "{{ group_names }}"
   when: item | match("(^tower|^instance_group_.+)$")
-  run_once: yes
 
 - debug:
     var: awx_instance_groups
+  run_once: yes
 
 - include: elb.yml instance_group='{{ include_item }}'
   with_items: '{{ awx_instance_groups }}'
