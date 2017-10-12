@@ -9,7 +9,7 @@
   delegate_to: "{{ item[0] }}"
   with_nested:
     - "{{ play_hosts }}"
-    - "{{ group_names }}"
+    - "{{ hostvars[item[0]].group_names }}"
   when: item[1] | match("(^instance_group_.+)$")
   run_once: yes
 
