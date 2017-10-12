@@ -8,7 +8,7 @@
     msg: "{{ item[1] }}"
   with_subelements:
     - "{{ play_hosts }}"
-    - "{{ group_names }}"
+    - "{{ hostvars[item[0]].group_names }}"
   run_once: yes
 
 - name: Determine instance groups for host
