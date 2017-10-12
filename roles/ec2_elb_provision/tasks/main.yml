@@ -5,19 +5,19 @@
   run_once: yes
 
 - debug:
-    msg: "{{ hostvars[item[0]].group_names[item[1]] }}"
+    msg: "{{ item[0] }}"
   with_nested:
-    - "{{ hostvars[item[0]].group_names }}"
+    - "{{ hostvars[item[1]].group_names }}"
     - "{{ play_hosts }}"
   run_once: yes
 
 - name: Determine instance groups for host
   set_fact:
-    awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ hostvars[item[0]].group_names[item[1]]|regex_replace('^instance_group_','') }}' ]"
+    awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item[0]|regex_replace('^instance_group_','') }}' ]"
   with_nested:
     - "{{ hostvars[item[0]].group_names }}"
     - "{{ play_hosts }}"
-  when: hostvars[item[0]].group_names[item[1]] | match("(^tower|^instance_group_.+)$")
+  when: item[0] | match("(^tower|^instance_group_.+)$")
   run_once: yes
 
 - debug:
