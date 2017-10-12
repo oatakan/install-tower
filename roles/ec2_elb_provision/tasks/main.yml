@@ -11,11 +11,11 @@
   when: item | match("(^tower|^instance_group_.+)$")
 
 - debug:
-    var: awx_instance_groups
+    var: hostvars[groups['tower'][0]].awx_instance_groups
   run_once: yes
 
 - include: elb.yml instance_group='{{ include_item }}'
-  with_items: '{{ awx_instance_groups }}'
+  with_items: '{{ hostvars[groups['tower'][0]].awx_instance_groups }}'
   loop_control:
     loop_var: include_item
   run_once: yes

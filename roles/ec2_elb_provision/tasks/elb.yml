@@ -4,7 +4,7 @@
     instance_ids: "{{ instance_ids|default([]) + [ {'id': hostvars[item].ec2_id, 'region': hostvars[item].ec2_region } ] }}"
   with_items:
     - "{{ groups[instance_group] }}"
-  when: hostvars[item].ec2_region == hostvars[instance_group[0]].ec2_region
+  when: hostvars[item].ec2_region == hostvars[groups[instance_group][0]].ec2_region
   run_once: yes
 
 - debug:
@@ -15,8 +15,8 @@
   ec2_group:
     name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-{{ instance_group | replace('_','-') }}-elb-sg"
     description: allow http and https
-    region: "{{ hostvars[instance_group[0]].ec2_region }}"
-    vpc_id: "{{ hostvars[instance_group[0]].ec2_vpc_id }}"
+    region: "{{ hostvars[groups[instance_group][0]].ec2_region }}"
+    vpc_id: "{{ hostvars[groups[instance_group][0]].ec2_vpc_id }}"
     rules:
       - proto: tcp
         from_port: 80
@@ -40,12 +40,12 @@
   ec2_elb_lb:
     name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-{{ instance_group | replace('_','-') }}-elb-lb"
     state: present
-    region: "{{ hostvars[instance_group[0]].ec2_region }}"
+    region: "{{ hostvars[groups[instance_group][0]].ec2_region }}"
     instance_ids: "{{ instance_ids | map(attribute='id') | list }}"
     security_group_names:
       - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-{{ instance_group | replace('_','-') }}-elb-sg"
     subnets:
-      - "{{ hostvars[instance_group[0]].ec2_subnet_id }}"
+      - "{{ hostvars[groups[instance_group][0]].ec2_subnet_id }}"
     purge_instance_ids: true
     cross_az_load_balancing: yes
     listeners:
