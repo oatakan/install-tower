@@ -11,6 +11,9 @@
   when: item | match("(^tower|^instance_group_.+)$")
   run_once: yes
 
+- debug:
+    var: awx_instance_groups
+
 - include: elb.yml instance_group='{{ include_item }}'
   with_items: '{{ awx_instance_groups }}'
   loop_control:

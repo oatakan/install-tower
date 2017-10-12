@@ -4,7 +4,7 @@
     instance_ids: "{{ instance_ids|default([]) + [ {'id': hostvars[item].ec2_id, 'region': hostvars[item].ec2_region } ] }}"
   with_items:
     - "{{ groups[instance_group] }}"
-  when: hostvars[item].ec2_region == hostvars[item[0]].ec2_region
+  when: hostvars[item].ec2_region == hostvars[instance_group[0]].ec2_region
   run_once: yes
 
 - debug:
