@@ -10,7 +10,7 @@
   with_nested:
     - "{{ play_hosts }}"
     - "{{ group_names }}"
-  when: item[1] | match("(^tower|^instance_group_.+)$")
+  when: item[1] | match("(^instance_group_.+)$")
   run_once: yes
 
 - name: Determine instance groups for host
