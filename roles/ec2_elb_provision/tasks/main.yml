@@ -4,6 +4,11 @@
     awx_instance_groups: []
   run_once: yes
 
+- debug:
+    msg: "{{ hostvars[item].group_names }}"
+  with_items: "{{ play_hosts }}"
+  run_once: yes
+
 - name: Determine instance groups for host
   set_fact:
     awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ hostvars[item].group_names[0]|regex_replace('^instance_group_','') }}' ]"
