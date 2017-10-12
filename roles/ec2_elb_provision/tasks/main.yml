@@ -6,12 +6,12 @@
 
 - name: Determine instance groups for host
   set_fact:
-    awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item|regex_replace('^instance_group_','') }}' ]"
-  with_items: "{{ group_names }}"
-  when: item | match("(^tower|^instance_group_.+)$")
+    awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item.group_names[0]|regex_replace('^instance_group_','') }}' ]"
+  with_items: "{{ play_hosts }}"
+  when: item.group_names[0] | match("(^tower|^instance_group_.+)$")
 
 - debug:
-    var: hostvars[groups['tower'][0]].awx_instance_groups
+    var: awx_instance_groups
   run_once: yes
 
 - include: elb.yml instance_group='{{ include_item }}'
