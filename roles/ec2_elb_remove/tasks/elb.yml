@@ -1,4 +1,13 @@
 ---
+- name: set current region
+  set_fact:
+    current_ec2_region: "{{ hostvars[groups[instance_group][0]].ec2_region }}"
+  run_once: yes
+
+- debug:
+    msg: "current region: {{ current_ec2_region }}"
+  run_once: yes
+
 - name: get record for router ELB DNS Entry
   route53:
     command: get
@@ -27,7 +36,7 @@
   ec2_elb_lb:
     name: "{{ ec2_name_prefix }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-lb"
     state: absent
-    region: "{{ hostvars[groups[instance_group][0]].ec2_region }}"
+    region: "{{ current_ec2_region }}"
     wait: yes
     wait_timeout: 600
   delegate_to: 127.0.0.1
@@ -37,7 +46,7 @@
   ec2_group:
     name: "{{ ec2_name_prefix }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-sg"
     description: allow http and https
-    region: "{{ hostvars[groups[instance_group][0]].ec2_region }}"
+    region: "{{ current_ec2_region }}"
     state: absent
   delegate_to: 127.0.0.1
   run_once: yes
