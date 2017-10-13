@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: tower:instance_group_*
   become: no
   vars:
     app_name: tower_clustered
