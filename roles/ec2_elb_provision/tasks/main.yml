@@ -4,16 +4,9 @@
     awx_instance_groups: []
   run_once: yes
 
-- debug:
-    msg: "{{ item }}"
-  with_items:
-    - "{{ groups.keys() }}"
-  when: item | match("(^tower|^instance_group_.+)$")
-  run_once: yes
-
 - name: Determine instance groups for host
   set_fact:
-    awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item|regex_replace('^instance_group_','') }}' ]"
+    awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item }}' ]"
   with_items:
     - "{{ groups.keys() }}"
   when: item | match("(^tower|^instance_group_.+)$")
