@@ -23,7 +23,6 @@
   with_items:
     - "{{ groups[instance_group] }}"
   when: (hostvars[item].ec2_region == current_ec2_region)
-  no_log: yes
   run_once: yes
 
 - debug:
