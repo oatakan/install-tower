@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: tower:instance_group_*
   become: no
   vars:
     app_name: tower_clustered
@@ -11,11 +11,15 @@
           vpc-id: "{{ ec2_vpc_id }}"
           "tag:app": tower_clustered
       register: ec2_instances
+      delegate_to: 127.0.0.1
+      run_once: yes
 
     - name: terminate instances
       ec2:
         region: "{{ ec2_region }}"
         state: "absent"
         instance_ids: "{{ ec2_instances.instances | map(attribute='id') | list }}"
+      delegate_to: 127.0.0.1
+      run_once: yes
   roles:
     - ec2_elb_remove
