@@ -7,6 +7,8 @@
     type: A
   register: routerelbrec
   when: hosted_zone_domain_name is defined and ec2_name_prefix is defined
+  delegate_to: 127.0.0.1
+  run_once: yes
 
 - name: delete Router ELB DNS Entry if it doesn't exist
   route53:
@@ -18,6 +20,8 @@
     alias: True
     alias_hosted_zone_id: "{{ routerelbrec.set.alias_hosted_zone_id }}"
   when: routerelbrec.set is defined and "{} != routerelbrec.set" and routerelbrec.set.alias_hosted_zone_id is defined
+  delegate_to: 127.0.0.1
+  run_once: yes
 
 - name: remove ec2 elb lb
   ec2_elb_lb:
@@ -26,6 +30,8 @@
     region: "{{ ec2_region }}"
     wait: yes
     wait_timeout: 600
+  delegate_to: 127.0.0.1
+  run_once: yes
 
 - name: remove ec2 security group
   ec2_group:
@@ -33,4 +39,6 @@
     description: allow http and https
     region: "{{ ec2_region }}"
     state: absent
+  delegate_to: 127.0.0.1
+  run_once: yes
 
