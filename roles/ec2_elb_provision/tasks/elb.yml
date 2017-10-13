@@ -13,7 +13,7 @@
 
 - name: ceate ec2 security groups
   ec2_group:
-    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-sg"
+    name: "{{ ec2_name_prefix }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-sg"
     description: allow http and https
     region: "{{ hostvars[groups[instance_group][0]].ec2_region }}"
     vpc_id: "{{ hostvars[groups[instance_group][0]].ec2_vpc_id }}"
@@ -30,7 +30,7 @@
       - proto: all
         cidr_ip: 0.0.0.0/0
     tags:
-      name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-sg"
+      name: "{{ ec2_name_prefix }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-sg"
       role: "{{ role_name }}"
       app: "{{ app_name }}"
   delegate_to: 127.0.0.1
@@ -38,12 +38,12 @@
 
 - name: provision a new ec2 elb lb
   ec2_elb_lb:
-    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-lb"
+    name: "{{ ec2_name_prefix }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-lb"
     state: present
     region: "{{ hostvars[groups[instance_group][0]].ec2_region }}"
     instance_ids: "{{ instance_ids | map(attribute='id') | list }}"
     security_group_names:
-      - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-sg"
+      - "{{ ec2_name_prefix }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-sg"
     subnets:
       - "{{ hostvars[groups[instance_group][0]].ec2_subnet_id }}"
     purge_instance_ids: true
@@ -64,7 +64,7 @@
       unhealthy_threshold: 2
       healthy_threshold: 2
     tags:
-      name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-lb"
+      name: "{{ ec2_name_prefix }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-lb"
       role: "{{ role_name }}"
       app: "{{ app_name }}"
   register: elb_lb
@@ -75,7 +75,7 @@
 #  ec2_elb:
 #    state: present
 #    ec2_elbs:
-#      - "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-elb-lb"
+#      - "{{ ec2_name_prefix }}-elb-lb"
 #    region: "{{ item.region }}"
 #    instance_id: "{{ item.id }}"
 #  with_items: "{{ instance_ids }}"

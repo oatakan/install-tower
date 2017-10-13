@@ -25,7 +25,7 @@
 
 - name: remove ec2 elb lb
   ec2_elb_lb:
-    name: "{{ ec2_name_prefix }}-{{ app_name | replace('_','-') }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-lb"
+    name: "{{ ec2_name_prefix }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-lb"
     state: absent
     region: "{{ ec2_region }}"
     wait: yes
@@ -35,7 +35,7 @@
 
 - name: remove ec2 security group
   ec2_group:
-    name: "{{ ec2_name_prefix }}-{{ instance_group | regex_replace('^instance_group_','') }}-{{ app_name | replace('_','-') }}-elb-sg"
+    name: "{{ ec2_name_prefix }}-{{ instance_group | regex_replace('^instance_group_','') }}-elb-sg"
     description: allow http and https
     region: "{{ ec2_region }}"
     state: absent
