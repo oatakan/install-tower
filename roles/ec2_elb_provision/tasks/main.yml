@@ -8,13 +8,14 @@
     msg: "{{ item }}"
   with_items:
     - "{{ groups }}"
+  when: item | match("(^tower|^instance_group_.+)$")
   run_once: yes
 
 - name: Determine instance groups for host
   set_fact:
     awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item|regex_replace('^instance_group_','') }}' ]"
-  with_nested:
-    - "{{ group_names }}"
+  with_items:
+    - "{{ group }}"
   when: item | match("(^tower|^instance_group_.+)$")
   run_once: yes
 
