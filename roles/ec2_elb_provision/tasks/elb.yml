@@ -6,7 +6,7 @@
 
 - name: set current region
   set_fact:
-    current_ec2_region: hostvars[groups[instance_group][0]].ec2_region
+    current_ec2_region: "{{ hostvars[groups[instance_group][0]].ec2_region }}"
   run_once: yes
 
 - debug:
@@ -23,6 +23,7 @@
   with_items:
     - "{{ groups[instance_group] }}"
   when: (hostvars[item].ec2_region == current_ec2_region)
+  no_log: yes
   run_once: yes
 
 - debug:
