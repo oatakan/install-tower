@@ -15,7 +15,7 @@
   set_fact:
     awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item|regex_replace('^instance_group_','') }}' ]"
   with_items:
-    - "{{ groups }}"
+    - "{{ groups.keys() }}"
   when: item | match("(^tower|^instance_group_.+)$")
   run_once: yes
 
