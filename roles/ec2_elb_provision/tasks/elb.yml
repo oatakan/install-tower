@@ -1,4 +1,8 @@
 ---
+- debug:
+    msg: "number of hosts in this group: {{ groups[instance_group]|length }}"
+  run_once: yes
+
 - name: initialize instance ids
   set_fact:
     instance_ids: []

@@ -21,4 +21,4 @@
   loop_control:
     loop_var: include_item
   run_once: yes
-  when: groups(instance_group)|length > 0
+  when: groups[include_item]|length > 0
