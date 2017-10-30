@@ -11,7 +11,7 @@ nodes:
         volume_size: 20
         delete_on_termination: true
   - name: towerb
-    role: tower_east
+    role: tower
     app_name: tower_clustered
     instance_type: t2.large
     image: ami-85241def #rhel7-tower
@@ -21,7 +21,7 @@ nodes:
         volume_size: 20
         delete_on_termination: true
   - name: towerc
-    role: tower_east
+    role: tower
     app_name: tower_clustered
     instance_type: t2.large
     image: ami-85241def #rhel7-tower
