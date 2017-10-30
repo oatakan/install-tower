@@ -3,7 +3,7 @@ nodes:
   - name: towera
     role: tower
     app_name: tower_clustered
-    instance_type: t2.medium
+    instance_type: t2.large
     image: ami-85241def #rhel7-tower
     volumes:
       - device_name: /dev/sda1
@@ -13,7 +13,7 @@ nodes:
   - name: towerb
     role: tower_east
     app_name: tower_clustered
-    instance_type: t2.medium
+    instance_type: t2.large
     image: ami-85241def #rhel7-tower
     volumes:
       - device_name: /dev/sda1
@@ -23,7 +23,7 @@ nodes:
   - name: towerc
     role: tower_east
     app_name: tower_clustered
-    instance_type: t2.medium
+    instance_type: t2.large
     image: ami-85241def #rhel7-tower
     volumes:
       - device_name: /dev/sda1
@@ -33,7 +33,7 @@ nodes:
   - name: towerisa
     role: isolated_remote
     app_name: tower_clustered
-    instance_type: t2.medium
+    instance_type: t2.large
     image: ami-85241def #rhel7-tower
     volumes:
       - device_name: /dev/sda1
@@ -53,7 +53,7 @@ nodes:
   - name: towerdb
     role: towerdb
     app_name: tower_clustered
-    instance_type: t2.medium
+    instance_type: t2.large
     image: ami-85241def #rhel7-tower
     volumes:
       - device_name: /dev/sda1
