@@ -3,7 +3,7 @@ nodes:
   - name: towerd
     role: tower_west
     app_name: tower_clustered
-    instance_type: t2.medium
+    instance_type: t2.large
     image: ami-f88fc498 #rhel7-tower
     volumes:
       - device_name: /dev/sda1
@@ -13,7 +13,7 @@ nodes:
   - name: towere
     role: tower_west
     app_name: tower_clustered
-    instance_type: t2.medium
+    instance_type: t2.large
     image: ami-f88fc498 #rhel7-tower
     volumes:
       - device_name: /dev/sda1
