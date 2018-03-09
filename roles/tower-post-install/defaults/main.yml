@@ -1,0 +1,14 @@
+yum_packages:
+  - python2-pip
+  - python-configparser
+  - httpd-tools
+  - java-1.8.0-openjdk-headless
+
+pip_packages:
+  - name: manageiq-client
+  - name: ansible-tower-cli
+  - name: passlib
+  - name: pyapi-gitlab
+  - name: pywinrm
+  - name: sendgrid
+    version: 2.2.1

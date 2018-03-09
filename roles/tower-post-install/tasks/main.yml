@@ -1,0 +1,12 @@
+- name: install packages needed
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ yum_packages }}"
+
+- name: install pip packages
+  pip:
+    name: "{{ item.name }}"
+    version: "{{ item.version|default(omit) }}"
+    virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+  with_items: "{{ pip_packages }}"
