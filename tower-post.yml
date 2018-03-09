@@ -2,6 +2,7 @@
 - hosts: tower:instance_group_*
   become: yes
   roles:
+    - tower-harden
     - tower-post-install
 
 - hosts: tower:instance_group_*

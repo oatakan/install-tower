@@ -1,0 +1,6 @@
+---
+- name: copy memcached config file
+  copy:
+    src: memcached
+    dest: /etc/sysconfig/memcached
+  notify: restart memcached
