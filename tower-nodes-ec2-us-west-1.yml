@@ -4,7 +4,7 @@ nodes:
     role: isolated_remote
     app_name: tower_clustered
     instance_type: t2.medium
-    image: ami-f88fc498 #rhel7-tower
+    image: "{{ rhel7_ami_id|default('ami-85241def') }}"
     volumes:
       - device_name: /dev/sda1
         volume_type: gp2
@@ -14,7 +14,7 @@ nodes:
     role: isolated_remote
     app_name: tower_clustered
     instance_type: t2.medium
-    image: ami-f88fc498 #rhel7-tower
+    image: "{{ rhel7_ami_id|default('ami-85241def') }}"
     volumes:
       - device_name: /dev/sda1
         volume_type: gp2

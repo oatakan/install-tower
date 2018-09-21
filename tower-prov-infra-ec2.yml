@@ -1,5 +1,12 @@
 - hosts: localhost
   become: no
+  gather_facts: no
+  roles:
+    - ec2-find-amis
+
+- hosts: localhost
+  become: no
+  gather_facts: no
   vars_files:
     - tower-nodes-ec2-{{ ec2_region }}.yml
   roles:
