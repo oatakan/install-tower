@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: install pip credssp package
+      pip:
+        name:
+          - pywinrm[kerberos]
+          - pywinrm[credssp]
+        virtualenv_command: /var/lib/awx/venv/ansible/bin/activate

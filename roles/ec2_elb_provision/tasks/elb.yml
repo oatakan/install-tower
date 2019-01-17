@@ -92,17 +92,6 @@
   delegate_to: 127.0.0.1
   run_once: yes
 
-#- name: add instances to elb
-#  ec2_elb:
-#    state: present
-#    ec2_elbs:
-#      - "{{ ec2_name_prefix }}-elb-lb"
-#    region: "{{ item.region }}"
-#    instance_id: "{{ item.id }}"
-#  with_items: "{{ instance_ids }}"
-#  delegate_to: 127.0.0.1
-#  run_once: yes
-
 - name: create router ELB DNS entry if it doesn't exist
   route53:
     state: present
