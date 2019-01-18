@@ -9,6 +9,6 @@ pip_packages:
   - name: ansible-tower-cli
   - name: passlib
   - name: pyapi-gitlab
-  - name: pywinrm
+  - name: pywinrm[credssp]
   - name: sendgrid
     version: 2.2.1
