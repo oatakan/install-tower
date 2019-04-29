@@ -1,0 +1,4 @@
+---
+
+pg_pass: '{{ tower_pass }}'
+rabbit_pass: '{{ tower_pass }}'

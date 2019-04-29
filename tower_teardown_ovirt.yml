@@ -1,0 +1,14 @@
+---
+
+- name: Remove VM
+  hosts: all
+  gather_facts: False
+  connection: local
+  become: no
+  vars_files:
+    - tower-nodes-ovirt.yml
+
+  roles:
+    - role: ansible-role-ovirt
+      role_action: deprovision
+      delegate_to: localhost

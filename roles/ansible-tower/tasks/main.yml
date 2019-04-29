@@ -1,0 +1,55 @@
+---
+- name: Enable extras repos
+  shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
+
+- name: Add Ansible repo - transition to engine... 
+  yum_repository:
+    name: ansible
+    description: Ansible for Enterprise Linux 7
+    baseurl: http://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/
+    enabled: yes
+    gpgcheck: no
+
+- name: Install packages
+  package:
+    name:
+      - vim
+      - git
+      - sshpass
+      - ansible-2.6.6
+      - bind-utils
+      - python-pip
+    state: present
+
+- name: Install devel branch
+  pip:
+    name: git+https://github.com/ansible/ansible.git@devel#egg=ansible
+  when: ansible_devel
+
+- name: Create /etc/ansible directory
+  file:
+    path: /etc/ansible
+    state: directory
+    mode: 0755
+
+- name: Create /etc/ansible/ansible.cfg
+  template:
+    src: ansible.cfg.j2
+    dest: /etc/ansible/ansible.cfg
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install the last version of OpenSSL
+  pip: 
+    name: pyOpenSSL
+    state: latest
+
+- name: Install pywinrm for connecting to windows hosts
+  pip:
+    name:
+      - pywinrm>=0.2.2
+      - pywinrm[credssp]
+
+- include_tasks: setup.yml
+  

@@ -1,0 +1,9 @@
+---
+
+- name: install ansible tower
+  hosts: all
+  become: yes
+  roles:
+  - ansible-role-rhn
+  - role: ansible-tower
+    tower_pass: "{{ lookup('env', 'TOWER_PASSWORD') }}"

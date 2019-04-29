@@ -1,0 +1,11 @@
+---
+# defaults file for ansible-tower
+ansible_devel: false
+dns_domain_name: "example.com"
+
+towerchk: undefined
+
+tower_version: 3.4.3-1
+tower_pass: 'password'
+pg_pass: 'password'
+rabbit_pass: 'password'
