@@ -1,0 +1,9 @@
+---
+
+- name: Add EPEL repo
+  yum_repository:
+    name: epel
+    description: EPEL for Enterprise Linux 7
+    baseurl: https://dl.fedoraproject.org/pub/epel/7/x86_64/
+    enabled: yes
+    gpgcheck: no
