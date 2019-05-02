@@ -16,7 +16,7 @@
       - vim
       - git
       - sshpass
-      - ansible-2.6.6
+      - ansible
       - bind-utils
       - python-pip
     state: present

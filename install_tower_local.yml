@@ -8,3 +8,4 @@
   - linux-common
   - role: ansible-tower
     tower_pass: "{{ lookup('env', 'TOWER_PASSWORD') }}"
+  - tower-post-install
