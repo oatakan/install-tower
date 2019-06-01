@@ -8,11 +8,13 @@
   until: '"error" not in install_epel'
   retries: 5
   delay: 10
+  when: ansible_distribution_major_version|int < 8
 
 - name: install packages needed
   yum:
     name: "{{ yum_packages }}"
     state: latest
+  when: ansible_distribution_major_version|int < 8
 
 - name: install pip packages
   pip:
