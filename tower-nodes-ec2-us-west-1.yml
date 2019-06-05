@@ -7,9 +7,9 @@ nodes:
     image: "{{ rhel7_ami_id|default('ami-85241def') }}"
     volumes:
       - device_name: /dev/sda1
-        volume_type: gp2
-        volume_size: 20
-        delete_on_termination: true
+        ebs:
+          volume_size: 20
+          delete_on_termination: true
   - name: towerisb
     role: isolated_remote
     app_name: tower_clustered
@@ -17,6 +17,6 @@ nodes:
     image: "{{ rhel7_ami_id|default('ami-85241def') }}"
     volumes:
       - device_name: /dev/sda1
-        volume_type: gp2
-        volume_size: 20
-        delete_on_termination: true
+        ebs:
+          volume_size: 20
+          delete_on_termination: true
