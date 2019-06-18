@@ -9,7 +9,6 @@
     var: "{{ item }}"
   loop:
     - "{{ groups.keys() }}"
-  when: item is regex("(^tower|^instance_group_.+)$")
   run_once: yes
 
 - name: Determine instance groups for host
