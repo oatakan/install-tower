@@ -4,12 +4,6 @@
     awx_instance_groups: []
   run_once: yes
 
-- name: debug hosts
-  debug:
-    msg: "{{ item.key }}"
-  with_dict: "{{ groups }}"
-  run_once: yes
-
 - name: Determine instance groups for host
   set_fact:
     awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item.key }}' ]"
