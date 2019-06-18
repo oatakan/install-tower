@@ -6,7 +6,8 @@
 
 - name: debug hosts
   debug:
-    var: "{{ groups.keys() | list }}"
+    msg: "{{ item }}"
+  with_items: "{{ groups.keys() }}"
   run_once: yes
 
 - name: Determine instance groups for host
