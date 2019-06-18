@@ -7,7 +7,7 @@
 - name: debug hosts
   debug:
     var: "{{ item }}"
-  loop:
+  with_dict:
     - "{{ groups.keys() }}"
   run_once: yes
 
