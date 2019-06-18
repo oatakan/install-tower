@@ -13,7 +13,7 @@
 - name: Determine instance groups for host
   set_fact:
     awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item }}' ]"
-  loop: "{{ groups }}"
+  with_dict: "{{ groups }}"
   when:
     - item.key is match("(^tower|^instance_group_.+)$")
     - groups[item.key]|length > 0
