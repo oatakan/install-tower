@@ -7,9 +7,9 @@
 - name: debug hosts
   debug:
     var: "{{ item }}"
-  with_items:
+  loop:
     - "{{ groups.keys() }}"
-  when: item is match("(^tower|^instance_group_.+)$")
+  when: item is regex("(^tower|^instance_group_.+)$")
   run_once: yes
 
 - name: Determine instance groups for host
