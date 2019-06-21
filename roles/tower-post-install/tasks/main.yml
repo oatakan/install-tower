@@ -21,4 +21,10 @@
     name: "{{ item.name }}"
     version: "{{ item.version|default(omit) }}"
     virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+    state: latest
   loop: "{{ pip_packages }}"
+
+- include_tasks: configure.yml
+  when:
+    - tower_username is defined
+    - tower_password is defined
