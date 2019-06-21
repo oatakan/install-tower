@@ -24,6 +24,18 @@
     state: latest
   loop: "{{ pip_packages }}"
 
+- name: uninstall requests-credssp
+  pip:
+    name: requests-credssp
+    virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+    state: absent
+
+- name: reinstall requests-credssp
+  pip:
+    name: requests-credssp
+    virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+    state: latest
+
 - include_tasks: configure.yml
   when:
     - tower_username is defined
