@@ -21,12 +21,13 @@
     name: "{{ item.name }}"
     version: "{{ item.version|default(omit) }}"
     virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+    extra_args: --upgrade
     state: latest
   loop: "{{ pip_packages }}"
 
-- name: upgrade requests-credssp
-  command: /var/lib/awx/venv/ansible/bin/pip install requests-credssp --upgrade
-  ignore_errors: yes
+#- name: upgrade requests-credssp
+#  command: /var/lib/awx/venv/ansible/bin/pip install requests-credssp --upgrade
+#  ignore_errors: yes
 
 - include_tasks: configure.yml
   when:
