@@ -5,7 +5,7 @@
     role_name: tower_elb
   tasks:
     - name: get ec2 instance information
-      ec2_remote_facts:
+      ec2_instance_facts:
         region: "{{ ec2_region }}"
         filters:
           vpc-id: "{{ ec2_vpc_id }}"
@@ -16,4 +16,4 @@
       ec2:
         region: "{{ ec2_region }}"
         state: "absent"
-        instance_ids: "{{ ec2_instances.instances | map(attribute='id') | list }}"
+        instance_ids: "{{ ec2_instances.instances | map(attribute='instance_id') | list }}"
