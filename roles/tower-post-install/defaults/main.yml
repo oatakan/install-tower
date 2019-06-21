@@ -11,3 +11,4 @@ pip_packages:
   - name: pyapi-gitlab
   - name: pywinrm[credssp]
   - name: sendgrid
+  - name: requests-credssp
