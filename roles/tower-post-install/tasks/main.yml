@@ -31,10 +31,6 @@
     extra_args: --upgrade
     state: latest
 
-#- name: upgrade requests-credssp
-#  command: /var/lib/awx/venv/ansible/bin/pip install requests-credssp --upgrade
-#  ignore_errors: yes
-
 - include_tasks: configure.yml
   when:
     - tower_username is defined
