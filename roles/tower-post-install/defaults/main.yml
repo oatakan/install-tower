@@ -5,9 +5,9 @@ yum_packages:
   - java-1.8.0-openjdk-headless
 
 pip_packages:
-  #- name: manageiq-client
   - name: ansible-tower-cli
   - name: passlib
   - name: pyapi-gitlab
   - name: pywinrm[credssp]
   - name: sendgrid
+  - name: requests-credssp
