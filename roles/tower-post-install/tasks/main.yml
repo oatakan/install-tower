@@ -33,9 +33,8 @@
 - name: upgrade latest version of requests-credssp package
   pip:
     name: requests-credssp
-     executable: /var/lib/awx/venv/ansible/bin/pip
-     extra_args: --upgrade
-#    virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+    executable: /var/lib/awx/venv/ansible/bin/pip
+    extra_args: --upgrade
     state: latest
 
 #- name: upgrade requests-credssp
