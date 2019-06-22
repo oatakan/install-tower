@@ -24,12 +24,17 @@
     state: latest
   loop: "{{ pip_packages }}"
 
-- name: upgrade requests-credssp package
+- name: remove requests-credssp package
   pip:
     name: requests-credssp
     virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
-    #extra_args: --upgrade
-    state: forcereinstall
+    state: absent
+
+- name: install latest version of requests-credssp package
+  pip:
+    name: requests-credssp
+    virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+    state: latest
 
 #- name: upgrade requests-credssp
 #  command: /var/lib/awx/venv/ansible/bin/pip install requests-credssp --upgrade
