@@ -30,11 +30,11 @@
     virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
     state: absent
 
-- name: install latest version of requests-credssp package
-  pip:
-    name: requests-credssp
-    virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
-    state: latest
+#- name: install latest version of requests-credssp package
+#  pip:
+#    name: requests-credssp
+#    virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+#    state: latest
 
 #- name: upgrade requests-credssp
 #  command: /var/lib/awx/venv/ansible/bin/pip install requests-credssp --upgrade
