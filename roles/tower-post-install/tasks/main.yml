@@ -29,7 +29,7 @@
     name: requests-credssp
     virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
     extra_args: --upgrade
-    state: latest
+    state: forcereinstall
 
 #- name: upgrade requests-credssp
 #  command: /var/lib/awx/venv/ansible/bin/pip install requests-credssp --upgrade
