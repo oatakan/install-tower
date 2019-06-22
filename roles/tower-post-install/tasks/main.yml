@@ -20,15 +20,9 @@
   pip:
     name: "{{ item.name }}"
     version: "{{ item.version|default(omit) }}"
-    virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+    executable: /var/lib/awx/venv/ansible/bin/pip
     state: latest
   loop: "{{ pip_packages }}"
-
-#- name: remove requests-credssp package
-#  pip:
-#    name: requests-credssp
-#    virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
-#    state: absent
 
 - name: upgrade latest version of requests-credssp package
   pip:
