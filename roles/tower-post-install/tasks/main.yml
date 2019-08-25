@@ -34,6 +34,16 @@
 - name: upgrade latest version of boto packages
   pip:
     name: "{{ item }}"
+    extra_args: --upgrade
+    state: latest
+  loop:
+    - boto
+    - botocore
+    - boto3
+
+- name: upgrade latest version of boto packages
+  pip:
+    name: "{{ item }}"
     executable: /var/lib/awx/venv/ansible/bin/pip
     extra_args: --upgrade
     state: latest
