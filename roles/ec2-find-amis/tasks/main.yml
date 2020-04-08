@@ -1,7 +1,7 @@
 ---
 
 - name: find ami id for rhel 7
-  ec2_ami_facts:
+  ec2_ami_info:
     owners: 309956199498
     filters:
       name: "{{ ec2_image_names['rhel7'] }}"
@@ -9,7 +9,7 @@
   register: rhel7_ami_find
 
 - name: find ami id for rhel 8
-  ec2_ami_facts:
+  ec2_ami_info:
     owners: 309956199498
     filters:
       name: "{{ ec2_image_names['rhel8'] }}"
@@ -17,7 +17,7 @@
   register: rhel8_ami_find
 
 - name: find ami id for centos 7
-  ec2_ami_facts:
+  ec2_ami_info:
     owners: aws-marketplace
     filters:
       name: "{{ ec2_image_names['centos7'] }}"
@@ -25,7 +25,7 @@
   register: centos7_ami_find
 
 - name: find ami id for centos 8
-  ec2_ami_facts:
+  ec2_ami_info:
     owners: aws-marketplace
     filters:
       name: "{{ ec2_image_names['centos8'] }}"
