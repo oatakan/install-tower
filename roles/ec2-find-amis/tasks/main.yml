@@ -1,17 +1,45 @@
-- name: find ami for rhel7
-  ec2_ami_find:
-    name: "{{ image_names['rhel-75'] }}"
+---
+
+- name: find ami id for rhel 7
+  ec2_ami_facts:
+    owners: 309956199498
+    filters:
+      name: "{{ ec2_image_names['rhel7'] }}"
     region: "{{ ec2_region }}"
   register: rhel7_ami_find
 
-- name: set ami id for rhel7
+- name: find ami id for rhel 8
+  ec2_ami_facts:
+    owners: 309956199498
+    filters:
+      name: "{{ ec2_image_names['rhel8'] }}"
+    region: "{{ ec2_region }}"
+  register: rhel8_ami_find
+
+- name: find ami id for centos 7
+  ec2_ami_facts:
+    owners: aws-marketplace
+    filters:
+      name: "{{ ec2_image_names['centos7'] }}"
+    region: "{{ ec2_region }}"
+  register: centos7_ami_find
+
+- name: find ami id for centos 8
+  ec2_ami_facts:
+    owners: aws-marketplace
+    filters:
+      name: "{{ ec2_image_names['centos8'] }}"
+    region: "{{ ec2_region }}"
+  register: centos8_ami_find
+
+- name: set ami ids
   set_fact:
-    rhel7_ami_id: "{{ rhel7_ami_find.results[0].ami_id }}"
-  when:
-    - rhel7_ami_find.results is defined
-    - rhel7_ami_find.results|length > 0
+    ec2_ami_ids:
+      rhel7: "{{ rhel7_ami_find.images[-1].image_id | default('') }}"
+      rhel8: "{{ rhel8_ami_find.images[-1].image_id | default('') }}"
+      centos7: "{{ centos7_ami_find.images[-1].image_id | default('') }}"
+      centos8: "{{ centos8_ami_find.images[-1].image_id | default('') }}"
 
 - debug:
-    var: rhel7_ami_id
-  when:
-  - rhel7_ami_id is defined
+    var: ec2_ami_ids
+  when: ec2_ami_ids is defined

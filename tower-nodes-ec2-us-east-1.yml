@@ -4,7 +4,7 @@ nodes:
     role: tower
     app_name: tower_clustered
     instance_type: t2.large
-    image: "{{ rhel7_ami_id|default('ami-85241def') }}"
+    image: "{{ ec2_ami_ids[ec2_tower_instance_ami_type] }}"
     volumes:
       - device_name: /dev/sda1
         ebs:
@@ -14,7 +14,7 @@ nodes:
     role: tower_east
     app_name: tower_clustered
     instance_type: t2.large
-    image: "{{ rhel7_ami_id|default('ami-85241def') }}"
+    image: "{{ ec2_ami_ids[ec2_tower_instance_ami_type] }}"
     volumes:
       - device_name: /dev/sda1
         ebs:
@@ -24,7 +24,7 @@ nodes:
     role: tower_east
     app_name: tower_clustered
     instance_type: t2.large
-    image: "{{ rhel7_ami_id|default('ami-85241def') }}"
+    image: "{{ ec2_ami_ids[ec2_tower_instance_ami_type] }}"
     volumes:
       - device_name: /dev/sda1
         ebs:
@@ -34,7 +34,7 @@ nodes:
     role: towerdb
     app_name: tower_clustered
     instance_type: t2.large
-    image: "{{ rhel7_ami_id|default('ami-85241def') }}"
+    image: "{{ ec2_ami_ids[ec2_tower_instance_ami_type] }}"
     volumes:
       - device_name: /dev/sda1
         ebs:
