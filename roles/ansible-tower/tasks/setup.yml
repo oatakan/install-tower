@@ -137,6 +137,30 @@
   register: response
   changed_when: response.status == 204
 
+- name: Update system settings for ELB and multiple nodes
+  uri:
+    url:  https://localhost/api/v2/settings/system/
+    method: PATCH
+    user: admin
+    password: "{{ tower_pass }}"
+    validate_certs: False
+    force_basic_auth: yes
+    body:
+      {
+        "REMOTE_HOST_HEADERS": [
+          "HTTP_X_FORWARDED_FOR",
+          "REMOTE_ADDR",
+          "REMOTE_HOST"
+        ]
+      }
+    body_format: json
+    status_code:
+      - 200
+      - 201
+      - 400
+  register: response
+  changed_when: response.status == 204
+
 - name: Disable GIT Cert validation
   lineinfile:
     path: /etc/tower/settings.py
