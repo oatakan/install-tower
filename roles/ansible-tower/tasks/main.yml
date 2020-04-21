@@ -59,6 +59,7 @@
     name:
       - pywinrm>=0.2.2
       - pywinrm[credssp]
+      - pysnow
 
 - include_tasks: setup.yml
   
