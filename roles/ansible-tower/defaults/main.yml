@@ -5,7 +5,7 @@ dns_domain_name: "example.com"
 
 towerchk: undefined
 
-tower_version: 3.6.3-1
+tower_version: 3.6.4-1
 tower_pass: 'password'
 pg_pass: 'password'
 rabbit_pass: 'password'
