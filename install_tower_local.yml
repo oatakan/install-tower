@@ -6,11 +6,10 @@
   pre_tasks:
     - name: add hosts to tower group
       add_host:
-        name: "{{ item }}"
-        ansible_host: "{{ hostvars[item].ansible_host }}"
-        ansible_port: "{{ hostvars[item].ansible_port }}"
+        name: "{{ inventory_hostname }}"
+        ansible_host: "{{ hostvars[inventory_hostname].ansible_host }}"
+        ansible_port: "{{ hostvars[inventory_hostname].ansible_port }}"
         groups: tower
-      loop: "{{ ansible_play_hosts }}"
   roles:
   - ansible-role-rhn
   - linux-common
