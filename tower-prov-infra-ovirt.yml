@@ -1,6 +1,6 @@
 - hosts: localhost
   become: no
   vars_files:
-    - tower-nodes-ovirt.yml
+    - node-config/tower-nodes-ovirt.yml
   roles:
     - ansible-role-ovirt

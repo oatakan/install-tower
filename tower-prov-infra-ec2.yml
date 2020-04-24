@@ -10,6 +10,6 @@
   vars:
     ec2_tower_instance_ami_type: rhel8
   vars_files:
-    - tower-nodes-ec2-{{ ec2_region }}.yml
+    - node-config/tower-nodes-ec2-{{ ec2_region }}.yml
   roles:
     - ansible-role-ec2

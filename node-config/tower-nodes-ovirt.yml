@@ -1,0 +1,17 @@
+---
+
+nodes:
+  - name: tower03
+    role: tower
+    app_name: mgmt_tower
+    domain: home.ad
+    memory: 4096
+    cpu: 2
+    disks:
+      - name: tower03-disk0
+        size: 100GiB
+    ports:
+      - port: 443
+    user_name: root
+    root_password: '{{ ansible_password | default(ansible_ssh_password) | default("password") | b64encode | b64decode }}'
+    template: "{{ template_name | default('centos81-x64-v1') }}"

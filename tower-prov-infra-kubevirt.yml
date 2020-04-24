@@ -1,0 +1,6 @@
+- hosts: localhost
+  become: no
+  vars_files:
+    - node-config/tower-nodes-kubevirt.yml
+  roles:
+    - ansible-role-kubevirt
