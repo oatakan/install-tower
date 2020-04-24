@@ -3,12 +3,6 @@
 - name: install ansible tower
   hosts: all
   become: yes
-  pre_tasks:
-    - name: add hosts to tower group
-      add_host:
-        name: "{{ inventory_hostname }}"
-        ansible_host: "{{ hostvars[inventory_hostname].ansible_host }}"
-        groups: tower
   roles:
   - ansible-role-rhn
   - linux-common
