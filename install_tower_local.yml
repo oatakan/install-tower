@@ -8,7 +8,6 @@
       add_host:
         name: "{{ inventory_hostname }}"
         ansible_host: "{{ hostvars[inventory_hostname].ansible_host }}"
-        ansible_port: "{{ hostvars[inventory_hostname].ansible_port }}"
         groups: tower
   roles:
   - ansible-role-rhn
