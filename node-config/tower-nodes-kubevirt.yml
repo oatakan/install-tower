@@ -4,14 +4,24 @@ nodes:
   - name: tower03
     role: tower
     app_name: mgmt_tower
-    domain: home.ad
-    memory: 4096
-    cpu: 2
+    networks:
+      - name: ovs-net-br1
+        ip: 192.168.1.33
+        netmask: 255.255.255.0
+        gateway: 192.168.1.254
+        nic_name: eth0
+        domain: home.ad
+        dns_servers:
+          - 192.168.1.254
+          - 8.8.4.4
     disks:
       - name: tower03-disk0
         size: 100GiB
-    ports:
-      - port: 443
+#    ports:
+#      - port: 443
+    domain: home.ad
+    memory: 4096
+    cpu: 2
     user_name: root
     root_password: '{{ ansible_password | default(ansible_ssh_password) | default("password") | b64encode | b64decode }}'
     template: "{{ template_name | default('centos81-x64-v1') }}"
