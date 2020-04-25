@@ -11,7 +11,6 @@
     app_name: tower_clustered
     role_name: tower_elb
   tasks:
-    - name: ec2 elb provision
-      include_role:
-        - name: ec2_elb_provision
+    - include_role:
+        name: ec2_elb_provision
       when: hosted_zone_domain_name is defined
