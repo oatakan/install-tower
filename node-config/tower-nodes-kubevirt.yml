@@ -4,21 +4,21 @@ nodes:
   - name: tower03
     role: tower
     app_name: mgmt_tower
-    networks:
-      - name: ovs-net-br1
-        ip: 192.168.1.33
-        netmask: 255.255.255.0
-        gateway: 192.168.1.254
-        nic_name: enp1s0
-        domain: home.ad
-        dns_servers:
-          - 192.168.1.254
-          - 8.8.4.4
+#    networks:
+#      - name: ovs-net-br1
+#        ip: 192.168.1.33
+#        netmask: 255.255.255.0
+#        gateway: 192.168.1.254
+#        nic_name: enp1s0
+#        domain: home.ad
+#        dns_servers:
+#          - 192.168.1.254
+#          - 8.8.4.4
     disks:
       - name: tower03-disk0
         size: 100GiB
-#    ports:
-#      - port: 443
+    ports:
+      - port: 443
     domain: home.ad
     memory: 4096
     cpu: 2
