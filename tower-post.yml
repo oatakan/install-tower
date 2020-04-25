@@ -10,5 +10,8 @@
   vars:
     app_name: tower_clustered
     role_name: tower_elb
-  roles:
-    - ec2_elb_provision
+  tasks:
+    - name: ec2 elb provision
+      include_role:
+        - name: ec2_elb_provision
+      when: hosted_zone_domain_name is defined

@@ -8,5 +8,6 @@
       - name: "{{ pg_username }}"
         password: "{{ pg_password }}"
   roles:
-  - common
-  #- geerlingguy.postgresql
+    - oatakan.rhn
+    - common
+#    - geerlingguy.postgresql
