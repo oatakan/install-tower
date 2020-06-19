@@ -24,7 +24,6 @@
   register: selinux_disable
   notify:
     - reboot
-    - wait for instance
   tags:
     - common
 

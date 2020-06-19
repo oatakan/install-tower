@@ -4,11 +4,4 @@
     state: restarted
 
 - name: reboot
-  shell: sleep 2 && reboot
-  async: 30
-  poll: 0
-
-- name: wait for instance
-  wait_for_connection:
-    timeout: 500
-    delay: 40
+  reboot:
