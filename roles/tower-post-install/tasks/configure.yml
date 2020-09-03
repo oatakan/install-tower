@@ -2,7 +2,7 @@
 
 - name: post license key
   uri:
-    url: https://localhost/api/v2/config/
+    url: http://localhost/api/v2/config/
     method: POST
     user: "{{ tower_username }}"
     password: "{{ tower_password }}"
@@ -15,7 +15,7 @@
 
 - name: Delete demo inventory
   uri:
-    url:  https://localhost/api/v2/inventories/1/
+    url:  http://localhost/api/v2/inventories/1/
     method: DELETE
     user: "{{ tower_username }}"
     password: "{{ tower_password }}"
@@ -33,7 +33,7 @@
 
 - name: Delete demo project
   uri:
-    url:  https://localhost/api/v2/projects/4/
+    url:  http://localhost/api/v2/projects/4/
     method: DELETE
     user: "{{ tower_username }}"
     password: "{{ tower_password }}"
@@ -51,7 +51,7 @@
 
 - name: Delete demo template
   uri:
-    url:  https://localhost/api/v2/job_templates/5/
+    url:  http://localhost/api/v2/job_templates/5/
     method: DELETE
     user: "{{ tower_username }}"
     password: "{{ tower_password }}"
@@ -69,7 +69,7 @@
 
 - name: Delete demo credential
   uri:
-    url:  https://localhost/api/v2/credentials/1/
+    url:  http://localhost/api/v2/credentials/1/
     method: DELETE
     user: "{{ tower_username }}"
     password: "{{ tower_password }}"
