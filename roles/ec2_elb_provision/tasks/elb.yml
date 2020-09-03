@@ -85,7 +85,7 @@
     health_check:
       ping_protocol: http # options are http, https, ssl, tcp
       ping_port: 80
-      ping_path: "/api/v1/ping/"
+      ping_path: "/api/v2/ping/"
       response_timeout: 5 # seconds
       interval: 10 # seconds
       unhealthy_threshold: 2
