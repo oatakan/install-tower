@@ -1,3 +1,7 @@
+---
+
+nginx_disable_https: 0
+
 yum_packages:
   - python2-pip
   - python-configparser
