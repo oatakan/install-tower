@@ -2,7 +2,7 @@
 
 ec2_image_names:
   rhel7: "RHEL-7.8_HVM_GA*x86_64*"
-  rhel8: "RHEL-8.1.0_HVM_GA*x86_64*"
+  rhel8: "RHEL-8.2.1_HVM*x86_64*"
   centos7: "CentOS Linux 7 x86_64 HVM EBS ENA 1901_01*"
-  centos8: "CentOS Linux 8 x86_64 HVM EBS ENA *"
+  centos8: "CentOS 8.2.2004 x86_64"
 ec2_region: us-east-1

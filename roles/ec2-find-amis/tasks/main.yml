@@ -26,7 +26,7 @@
 
 - name: find ami id for centos 8
   ec2_ami_info:
-    owners: aws-marketplace
+    owners: 125523088429
     filters:
       name: "{{ ec2_image_names['centos8'] }}"
     region: "{{ ec2_region }}"
