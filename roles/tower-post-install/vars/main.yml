@@ -4,4 +4,4 @@ tower_host: "{{ lookup('env', 'TOWER_HOST') }}"
 tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
 tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
 
-tower_local_api_url: "{{ 'http' if (nginx_disable_https == '1') else 'https' }}://localhost/api/v2"
+tower_local_api_url: "{{ 'http' if (nginx_disable_https|int == 1) else 'https' }}://localhost/api/v2"
