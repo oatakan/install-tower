@@ -4,6 +4,9 @@
     awx_instance_groups: []
   run_once: yes
 
+- debug:
+    msg: "{{ groups.keys() }}"
+
 - name: Determine instance groups for host
   set_fact:
     awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item }}' ]"
