@@ -7,8 +7,7 @@
 - name: Determine instance groups for host
   set_fact:
     awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item }}' ]"
-  with_items:
-    - "{{ groups.keys() }}"
+  loop: "{{ groups.keys() }}"
   when: item is match("(^tower|^instance_group_.+)$")
   run_once: yes
 
