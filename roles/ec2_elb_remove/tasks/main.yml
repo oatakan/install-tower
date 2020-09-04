@@ -12,7 +12,7 @@
     awx_instance_groups: "{{ awx_instance_groups }} + [ '{{ item }}' ]"
   with_items:
     - "{{ groups.keys() }}"
-  when: item | match("(^tower|^instance_group_.+)$")
+  when: item is match("(^tower|^instance_group_.+)$")
   run_once: yes
 
 - debug:
