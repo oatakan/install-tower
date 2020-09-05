@@ -19,6 +19,8 @@ nodes:
         size: 100GiB
     ports:
       - port: 443
+        route: yes
+        secure: yes
     domain: home.ad
     memory: 4096
     cpu: 2
