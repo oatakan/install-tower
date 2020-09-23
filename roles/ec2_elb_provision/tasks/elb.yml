@@ -71,6 +71,7 @@
     listeners:
       - protocol: https
         load_balancer_port: 443
+        instance_protocol: http
         instance_port: 80
         ssl_certificate_id: "{{ ec2_cert_id | default(omit) }}"
 #    listeners:
