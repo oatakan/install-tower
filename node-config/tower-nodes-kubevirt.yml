@@ -22,7 +22,7 @@ nodes:
         route: yes
         secure: yes
     domain: home.ad
-    memory: 4096
+    memory: 6144
     cpu: 2
     user_name: root
     root_password: '{{ ansible_password | default(ansible_ssh_password) | default("password") | b64encode | b64decode }}'
