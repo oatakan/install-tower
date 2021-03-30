@@ -14,3 +14,21 @@
     - include_role:
         name: ec2_elb_provision
       when: hosted_zone_domain_name is defined
+
+- name: test tower
+  hosts: tower:instance_group_*
+  gather_facts: no
+  become: no
+  tasks:
+    - name: testing connection to tower
+      tower_job_list:
+        tower_host: "{{ instance_group | regex_replace('^instance_group_','') }}.{{ ec2_name_prefix | lower }}.{{ hosted_zone_domain_name }}"
+        tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
+        tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
+      register: testing_jobs
+      until: testing_jobs is success
+      delay: 3
+      retries: 30
+      delegate_to: localhost
+      run_once: yes
+      when: hosted_zone_domain_name is defined
