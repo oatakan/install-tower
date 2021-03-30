@@ -28,7 +28,7 @@
       register: testing_jobs
       until: testing_jobs is success
       delay: 3
-      retries: 30
+      retries: 300
       delegate_to: localhost
       run_once: yes
       when: hosted_zone_domain_name is defined
