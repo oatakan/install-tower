@@ -12,6 +12,7 @@
     force_basic_auth: yes
   ignore_errors: True
   when: tower_license is defined
+  run_once: yes
 
 - name: Delete demo inventory
   uri:
@@ -30,6 +31,7 @@
       - 404
   register: response
   changed_when: response.status == 204
+  run_once: yes
 
 - name: Delete demo project
   uri:
@@ -48,6 +50,7 @@
       - 404
   register: response
   changed_when: response.status == 204
+  run_once: yes
 
 - name: Delete demo template
   uri:
@@ -66,6 +69,7 @@
       - 404
   register: response
   changed_when: response.status == 204
+  run_once: yes
 
 - name: Delete demo credential
   uri:
@@ -84,3 +88,4 @@
       - 404
   register: response
   changed_when: response.status == 204
+  run_once: yes
