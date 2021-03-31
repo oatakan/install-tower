@@ -1,0 +1,78 @@
+---
+
+#### REMOVE BUILT-IN DEMO CONTENT
+- name: Delete demo inventory
+  uri:
+    url:  "{{ tower_local_api_url }}/inventories/1/"
+    method: DELETE
+    user: "{{ tower_username }}"
+    password: "{{ tower_password }}"
+    validate_certs: False
+    force_basic_auth: yes
+    status_code:
+      - 200
+      - 201
+      - 202
+      - 204
+      - 400
+      - 404
+  register: response
+  changed_when: response.status == 204
+  run_once: yes
+
+- name: Delete demo project
+  uri:
+    url:  "{{ tower_local_api_url }}/projects/6/"
+    method: DELETE
+    user: "{{ tower_username }}"
+    password: "{{ tower_password }}"
+    validate_certs: False
+    force_basic_auth: yes
+    status_code:
+      - 200
+      - 201
+      - 202
+      - 204
+      - 400
+      - 404
+  register: response
+  changed_when: response.status == 204
+  run_once: yes
+
+- name: Delete demo template
+  uri:
+    url:  "{{ tower_local_api_url }}/job_templates/7/"
+    method: DELETE
+    user: "{{ tower_username }}"
+    password: "{{ tower_password }}"
+    validate_certs: False
+    force_basic_auth: yes
+    status_code:
+      - 200
+      - 201
+      - 202
+      - 204
+      - 400
+      - 404
+  register: response
+  changed_when: response.status == 204
+  run_once: yes
+
+- name: Delete demo credential
+  uri:
+    url:  "{{ tower_local_api_url }}/credentials/1/"
+    method: DELETE
+    user: "{{ tower_username }}"
+    password: "{{ tower_password }}"
+    validate_certs: False
+    force_basic_auth: yes
+    status_code:
+      - 200
+      - 201
+      - 202
+      - 204
+      - 400
+      - 404
+  register: response
+  changed_when: response.status == 204
+  run_once: yes
