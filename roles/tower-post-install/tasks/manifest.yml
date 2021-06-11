@@ -42,7 +42,7 @@
     - name: download manifest to file
       get_url:
         url: https://subscription.rhsm.redhat.com/subscription/consumers/{{ rhn_sub_allocation_uuid }}/export
-        dest: "{{ playbook_dir }}/manifest.zip"
+        dest: ./manifest.zip
         username: "{{ rhn_username }}"
         password: "{{ rhn_password }}"
         validate_certs: false
