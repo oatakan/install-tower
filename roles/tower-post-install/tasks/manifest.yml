@@ -27,17 +27,32 @@
       vars:
         query: "@[?name==`{{ rhn_sub_allocation_name }}`]"
 
-    - name: download manifest to variable
-      uri:
+#    - name: download manifest to variable
+#      uri:
+#        url: https://subscription.rhsm.redhat.com/subscription/consumers/{{ rhn_sub_allocation_uuid }}/export
+#        user: "{{ rhn_username }}"
+#        password: "{{ rhn_password }}"
+#        validate_certs: false
+#        return_content: yes
+#        headers:
+#          Content-Type: application/zip
+#      register: tower_license_manifest
+#      no_log: true
+
+    - name: download manifest to file
+      get_url:
         url: https://subscription.rhsm.redhat.com/subscription/consumers/{{ rhn_sub_allocation_uuid }}/export
-        user: "{{ rhn_username }}"
+        dest: "{{ playbook_dir }}/manifest.zip"
+        username: "{{ rhn_username }}"
         password: "{{ rhn_password }}"
         validate_certs: false
-        return_content: yes
-        headers:
-          Content-Type: application/zip
+
+    - name: load manifest into variable
+      slurp:
+        src: "{{ playbook_dir }}/manifest.zip"
+      delegate_to: localhost
       register: tower_license_manifest
-      no_log: true
+      become: false
 
     - name: post manifest file
       uri:
