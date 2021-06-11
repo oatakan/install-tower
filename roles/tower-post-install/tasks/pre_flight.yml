@@ -1,0 +1,47 @@
+---
+
+- name: check tower version
+  uri:
+    url: "{{ tower_local_api_url }}/ping/"
+    method: GET
+    user: "{{ tower_username }}"
+    password: "{{ tower_password }}"
+    validate_certs: False
+    force_basic_auth: yes
+    return_content: yes
+  register: tower_version_api
+  run_once: yes
+
+- name: set tower version
+  set_fact:
+    tower_version: "{{ tower_version_api.json.version }}"
+  run_once: yes
+
+- name: show tower version
+  debug:
+    msg: "tower version is {{ tower_version }}"
+  run_once: yes
+
+- name: tower version < 3.7
+  block:
+    - fail:
+        msg: "Need tower_license in extra_vars for tower version < 3.8"
+      when: tower_license is undefined
+
+    - set_fact:
+        use_manifest: false
+      run_once: yes
+
+  when: tower_version is version('3.8', '<')
+
+- name: tower version >= 3.8
+  block:
+    - fail:
+        msg: "Need to pass rhn_username, rhn_password and rhn_api_offline_token in extra_vars for tower version >= 3.8"
+      when: rhn_username is undefined or rhn_password is undefined or rhn_api_offline_token is undefined
+
+    - set_fact:
+        use_manifest: true
+      run_once: yes
+
+  when: tower_version is version('3.8', '>=')

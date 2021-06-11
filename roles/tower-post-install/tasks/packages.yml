@@ -1,0 +1,53 @@
+---
+
+- name: install epel
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+  register: install_epel
+  until: '"error" not in install_epel'
+  retries: 5
+  delay: 10
+  when: ansible_distribution_major_version|int < 8
+
+- name: install packages needed
+  yum:
+    name: "{{ yum_packages }}"
+    state: latest
+  when: ansible_distribution_major_version|int < 8
+
+- name: install pip packages
+  pip:
+    name: "{{ item.name }}"
+    version: "{{ item.version|default(omit) }}"
+    executable: /var/lib/awx/venv/ansible/bin/pip
+    state: latest
+  loop: "{{ pip_packages }}"
+
+- name: upgrade latest version of requests-credssp package
+  pip:
+    name: requests-credssp
+    executable: /var/lib/awx/venv/ansible/bin/pip
+    extra_args: --upgrade
+    state: latest
+
+- name: upgrade latest version of boto packages
+  pip:
+    name: "{{ item }}"
+    extra_args: --upgrade
+    state: latest
+  loop:
+    - boto
+    - botocore
+    - boto3
+
+- name: upgrade latest version of boto packages
+  pip:
+    name: "{{ item }}"
+    executable: /var/lib/awx/venv/ansible/bin/pip
+    extra_args: --upgrade
+    state: latest
+  loop:
+    - boto
+    - botocore
+    - boto3

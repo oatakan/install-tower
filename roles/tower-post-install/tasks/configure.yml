@@ -11,8 +11,11 @@
     validate_certs: False
     force_basic_auth: yes
   ignore_errors: True
-  when: tower_license is defined
+  when: not use_manifest
   run_once: yes
+
+- include_tasks: manifest.yml
+  when: use_manifest
 
 - block:
     - include_tasks: remove_demo.yml

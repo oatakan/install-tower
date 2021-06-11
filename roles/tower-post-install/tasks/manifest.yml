@@ -1,0 +1,49 @@
+---
+- block:
+    - name: generate refresh token
+      uri:
+        url: "{{ rhn_token_api_url }}"
+        method: POST
+        body_format: form-urlencoded
+        body:
+          grant_type: refresh_token
+          client_id: rhsm-api
+          refresh_token: "{{ rhn_api_offline_token }}"
+        return_content: yes
+      register: rhn_api_refresh_token
+
+    - name: get subscription list
+      uri:
+        url: "{{ rhn_sub_allocation_url }}"
+        headers:
+          Content-Type: application/json
+          Authorization: "Bearer {{ rhn_api_refresh_token.json.access_token }}"
+        return_content: yes
+      register: rh_sub_allocation_list
+
+    - name: set allocation uuid
+      set_fact:
+        rhn_sub_allocation_uuid: "{{ (rh_sub_allocation_list.json.body | json_query(query))[0].uuid }}"
+      vars:
+        query: "@[?name==`{{ rhn_sub_allocation_name }}`]"
+
+    - name: download manifest to variable
+      uri:
+        url: https://subscription.rhsm.redhat.com/subscription/consumers/{{ rhn_sub_allocation_uuid }}/export
+        user: "{{ rhn_username }}"
+        password: "{{ rhn_password }}"
+        validate_certs: false
+        return_content: yes
+      register: tower_license_manifest
+
+    - name: post manifest file
+      uri:
+        url: "{{ tower_local_api_url }}/config/"
+        method: POST
+        user: "{{ tower_username }}"
+        password: "{{ tower_password }}"
+        body: '{ "eula_accepted": true, "manifest": "{{ tower_license_manifest.content }}" }'
+        body_format: json
+        validate_certs: false
+        force_basic_auth: true
+  run_once: yes

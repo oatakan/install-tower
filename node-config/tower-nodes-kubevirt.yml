@@ -14,9 +14,9 @@ nodes:
 #        dns_servers:
 #          - 192.168.1.254
 #          - 8.8.4.4
-    disks:
-      - name: tower03-disk0
-        size: 100GiB
+#    disks:
+#      - name: tower03-disk0
+#        size: 100GiB
     ports:
       - port: 443
         route: yes
