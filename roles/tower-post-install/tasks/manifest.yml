@@ -46,6 +46,8 @@
         username: "{{ rhn_username }}"
         password: "{{ rhn_password }}"
         validate_certs: false
+      delegate_to: localhost
+      become: false
 
     - name: load manifest into variable
       slurp:
