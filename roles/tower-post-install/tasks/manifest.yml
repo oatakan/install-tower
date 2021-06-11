@@ -34,7 +34,10 @@
         password: "{{ rhn_password }}"
         validate_certs: false
         return_content: yes
+        headers:
+          Content-Type: application/zip
       register: tower_license_manifest
+      no_log: true
 
     - name: post manifest file
       uri:
