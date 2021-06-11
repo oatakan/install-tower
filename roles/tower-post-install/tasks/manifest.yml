@@ -49,7 +49,7 @@
 
     - name: load manifest into variable
       slurp:
-        src: ./manifest.zip
+        src: manifest.zip
       delegate_to: localhost
       register: tower_license_manifest
       become: false
