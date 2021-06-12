@@ -51,3 +51,10 @@
     - boto
     - botocore
     - boto3
+
+- name: install vsphere-automation-sdk-python
+  pip:
+    name: git+https://github.com/vmware/vsphere-automation-sdk-python.git
+    executable: /var/lib/awx/venv/ansible/bin/pip
+    extra_args: --upgrade
+    state: latest
