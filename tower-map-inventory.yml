@@ -1,0 +1,29 @@
+- name: map tower installation inventory
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    inventory_name: aws-tower-install-inventory
+    inventory_groups:
+      - name: tower
+        mapped_group: tag_role_tower
+      - name: database
+        mapped_group: tag_role_towerdb
+      - name: instance_group_east
+        mapped_group: tag_role_tower_east
+      - name: isolated_group_remote
+        mapped_group: tag_role_isolated_remote
+      - name: isolated_group_remote
+        mapped_group: tag_role_isolated_remote
+  tasks:
+    - name: add inventory group
+      awx.awx.tower_group:
+        tower_host: "{{ lookup('env', 'TOWER_HOST') | default('localhost') }}"
+        tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
+        tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
+        validate_certs: no
+        name: "{{ item.name }}"
+        inventory: "{{ inventory_name }}"
+        children:
+          - "{{ item.mapped_group }}"
+      loop: "{{ inventory_groups }}"
