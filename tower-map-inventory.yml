@@ -26,7 +26,6 @@
         name: "{{ inventory_name }}"
         organization: "{{ organization }}"
         state: present
-        tower_config_file: "~/tower_cli.cfg"
 
     - name: add inventory group
       awx.awx.tower_group:
