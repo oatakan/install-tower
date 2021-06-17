@@ -4,6 +4,7 @@
   gather_facts: false
   vars:
     inventory_name: aws-tower-install-inventory
+    organization: demo
     inventory_groups:
       - name: tower
         mapped_group: tag_role_tower
@@ -16,6 +17,17 @@
       - name: isolated_group_remote
         mapped_group: tag_role_isolated_remote
   tasks:
+    - name: ensure inventory exists
+      awx.awx.tower_inventory:
+        tower_host: "{{ lookup('env', 'TOWER_HOST') | default('localhost') }}"
+        tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
+        tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
+        validate_certs: no
+        name: "{{ inventory_name }}"
+        organization: "{{ organization }}"
+        state: present
+        tower_config_file: "~/tower_cli.cfg"
+
     - name: add inventory group
       awx.awx.tower_group:
         tower_host: "{{ lookup('env', 'TOWER_HOST') | default('localhost') }}"
