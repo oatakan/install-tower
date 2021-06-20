@@ -1,3 +1,8 @@
+---
+
+firewall_name: firewalld
+common_ssh_service_name: sshd
+
 common_node_config_options:
   - dest: /etc/ssh/sshd_config
     regexp: '^#?Port'
