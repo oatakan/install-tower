@@ -66,4 +66,5 @@
         body_format: json
         validate_certs: false
         force_basic_auth: true
+      ignore_errors: yes
   run_once: yes
