@@ -9,7 +9,7 @@
     body: "{{ tower_license }}"
     body_format: json
     validate_certs: False
-    force_basic_auth: yes
+    force_basic_auth: True
   ignore_errors: True
   when: not use_manifest
   run_once: yes
@@ -21,3 +21,17 @@
     - include_tasks: remove_demo.yml
   rescue:
     - include_tasks: remove_demo_api.yml
+
+- name: disable GIT SSL
+  uri:
+    url: "{{ tower_local_api_url }}/settings/jobs/"
+    method: PATCH
+    user: "{{ tower_username }}"
+    password: "{{ tower_password }}"
+    validate_certs: False
+    force_basic_auth: true
+    body_format: json
+    body: '{ "AWX_TASK_ENV": { "GIT_SSL_NO_VERIFY": "True" } }'
+    status_code:
+      - 200
+  when: disable_git_ssl|bool

@@ -6,6 +6,8 @@ rhn_token_api_url: https://sso.redhat.com/auth/realms/redhat-external/protocol/o
 rhn_sub_allocation_url: https://api.access.redhat.com/management/v1/allocations
 rhn_sub_allocation_name: my_org_manifest
 
+disable_git_ssl: true
+
 yum_packages:
   - python2-pip
   - python-configparser
