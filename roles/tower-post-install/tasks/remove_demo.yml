@@ -4,6 +4,7 @@
 - name: delete demo job template
   tower_job_template:
     name: "Demo Job Template"
+    job_type: "run"
     state: absent
     tower_username: "{{ tower_username }}"
     tower_password: "{{ tower_password }}"
@@ -37,7 +38,6 @@
     name: "Demo Project"
     organization: "Default"
     scm_type: git
-    scm_url: "https://github.com/ansible/ansible-tower-samples"
     state: absent
     tower_username: "{{ tower_username }}"
     tower_password: "{{ tower_password }}"
