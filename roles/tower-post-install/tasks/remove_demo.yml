@@ -5,6 +5,8 @@
   tower_job_template:
     name: "Demo Job Template"
     job_type: "run"
+    project: "Demo Project"
+    playbook: "hello_world.yml"
     state: absent
     tower_username: "{{ tower_username }}"
     tower_password: "{{ tower_password }}"
