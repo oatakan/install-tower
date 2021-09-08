@@ -7,7 +7,12 @@ nodes:
     os_type: Linux
     vm_size: Standard_A2_v2
     image:
-      sku: 8.4
-      publisher: RedHat
-      version: latest
-      offer: RHEL
+      sku: '8_4'
+      publisher: OpenLogic
+      version: '8.4.2021071900'
+      offer: CentOS
+#     image:
+#       sku: '8_4'
+#       publisher: RedHat
+#       version: '8.4.2021081001'
+#       offer: rhel-raw
