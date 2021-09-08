@@ -22,8 +22,8 @@ nodes:
         route: yes
         secure: yes
     domain: home.ad
-    memory: 6144
+    memory: 8192
     cpu: 2
     user_name: root
-    root_password: '{{ ansible_password | default(ansible_ssh_password) | default("password") | b64encode | b64decode }}'
+    root_password: '{{ ansible_password | default(ansible_ssh_password) | default("password") }}'
     template: "{{ template_name | default('centos81-x64-v1') }}"

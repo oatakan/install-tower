@@ -1,0 +1,9 @@
+---
+
+- hosts: localhost
+  become: no
+  gather_facts: no
+  vars_files:
+    - node-config/tower-nodes-azure.yml
+  roles:
+    - ansible-role-azure

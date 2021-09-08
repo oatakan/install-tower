@@ -1,0 +1,13 @@
+---
+azure_prefix: tower
+nodes:
+  - name: towera
+    role: tower
+    app_name: tower_clustered
+    os_type: Linux
+    vm_size: Standard_A2_v2
+    image:
+      sku: 8.4
+      publisher: Cognosys
+      version: latest
+      offer: CentOS

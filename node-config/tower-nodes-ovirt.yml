@@ -24,7 +24,7 @@ nodes:
     dns_servers:
     - 8.8.8.8
     - 8.8.4.4
-    memory: 4096
+    memory: 8192
     cpu: 2
     user_name: root
     root_password: vagrant
