@@ -38,3 +38,4 @@
         children:
           - "{{ item.mapped_group }}"
       loop: "{{ inventory_groups }}"
+      ignore_errors: yes
