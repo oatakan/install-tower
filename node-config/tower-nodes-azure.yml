@@ -5,7 +5,7 @@ nodes:
     role: tower
     app_name: tower_clustered
     os_type: Linux
-    vm_size: Standard_A2_v2
+    vm_size: Standard_D2as_v4
     image:
       sku: '8_4'
       publisher: OpenLogic
