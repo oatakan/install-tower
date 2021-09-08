@@ -7,7 +7,7 @@ nodes:
     os_type: Linux
     vm_size: Standard_A2_v2
     image:
-      sku: 8.4
-      publisher: OpenLogic
+      sku: centos-8-4
+      publisher: cognosys
       version: latest
-      offer: CentOS
+      offer: centos-8-4
