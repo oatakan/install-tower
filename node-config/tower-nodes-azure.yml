@@ -7,7 +7,7 @@ nodes:
     os_type: Linux
     vm_size: Standard_A2_v2
     image:
-      sku: 8_4
+      sku: 8.4
       publisher: RedHat
       version: latest
       offer: RHEL
