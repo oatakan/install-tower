@@ -7,7 +7,7 @@ nodes:
     os_type: Linux
     vm_size: Standard_A2_v2
     image:
-      sku: centos-8-4
-      publisher: cognosys
+      sku: 8_4
+      publisher: RedHat
       version: latest
-      offer: centos-8-4
+      offer: RHEL
