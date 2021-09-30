@@ -1,31 +1,21 @@
 ---
-
 providers:
   ovirt:
-    cluster: pele-Local
+    cluster: production
+
 nodes:
   - name: tower02
     role: tower
     app_name: mgmt_tower
     networks:
     - name: ovirtmgmt
-      ip: 192.168.1.31
-      netmask: 255.255.255.0
-      gateway: 192.168.1.254
-      domain: home.ad
-      dns_servers:
-      - 8.8.8.8
-      - 8.8.4.4
     disks:
-    - name: GlanceDisk-fe03ebf
+    - name: "{{ infra_template_name|default('centos84-x64-v1') }}"
       name_prefix: no
       size: 100GiB
     domain: home.ad
-    dns_servers:
-    - 8.8.8.8
-    - 8.8.4.4
     memory: 8192
     cpu: 2
     user_name: root
-    root_password: vagrant
-    template: centos76-generic-cloud-1901
+    root_password: '{{ ansible_password | default(ansible_ssh_password) | default("password") }}'
+    template: "{{ infra_template_name|default('centos84-x64-v1') }}"
