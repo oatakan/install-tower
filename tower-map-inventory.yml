@@ -4,6 +4,7 @@
   gather_facts: false
   vars:
     inventory_name: aws-tower-install-inventory
+    inventory_top_level_group_name: tower-install
     organization: demo
     inventory_groups:
       - name: tower
