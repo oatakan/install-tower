@@ -28,16 +28,6 @@
         organization: "{{ organization }}"
         state: present
 
-    - name: ensure static groups exist
-      awx.awx.tower_group:
-        tower_host: "{{ lookup('env', 'TOWER_HOST') | default('localhost') }}"
-        tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
-        tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
-        validate_certs: no
-        name: "{{ inventory_top_level_group_name }}"
-        inventory: "{{ inventory_name }}"
-        children: "{{ inventory_groups | map(attribute='name') | list }}"
-
     - name: ensure dynamic groups are added
       awx.awx.tower_group:
         tower_host: "{{ lookup('env', 'TOWER_HOST') | default('localhost') }}"
@@ -49,3 +39,13 @@
         children:
           - "{{ item.mapped_group }}"
       loop: "{{ inventory_groups }}"
+
+    - name: ensure top level static group exist
+      awx.awx.tower_group:
+        tower_host: "{{ lookup('env', 'TOWER_HOST') | default('localhost') }}"
+        tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
+        tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
+        validate_certs: no
+        name: "{{ inventory_top_level_group_name }}"
+        inventory: "{{ inventory_name }}"
+        children: "{{ inventory_groups | map(attribute='name') | list }}"
