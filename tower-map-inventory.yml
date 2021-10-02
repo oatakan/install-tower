@@ -8,14 +8,14 @@
     inventory_groups:
       - name: tower
         mapped_group: tag_role_tower
-      - name: database
-        mapped_group: tag_role_towerdb
-      - name: instance_group_east
-        mapped_group: tag_role_tower_east
-      - name: isolated_group_remote
-        mapped_group: tag_role_isolated_remote
-      - name: isolated_group_remote
-        mapped_group: tag_role_isolated_remote
+#       - name: database
+#         mapped_group: tag_role_towerdb
+#       - name: instance_group_east
+#         mapped_group: tag_role_tower_east
+#       - name: isolated_group_remote
+#         mapped_group: tag_role_isolated_remote
+#       - name: isolated_group_remote
+#         mapped_group: tag_role_isolated_remote
   tasks:
     - name: ensure inventory exists
       awx.awx.tower_inventory:
@@ -27,7 +27,17 @@
         organization: "{{ organization }}"
         state: present
 
-    - name: add inventory group
+    - name: ensure static groups exist
+      awx.awx.tower_group:
+        tower_host: "{{ lookup('env', 'TOWER_HOST') | default('localhost') }}"
+        tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
+        tower_password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
+        validate_certs: no
+        name: "{{ inventory_top_level_group_name }}"
+        inventory: "{{ inventory_name }}"
+        children: "{{ inventory_groups | map(attribute='name') | list }}"
+
+    - name: ensure dynamic groups are added
       awx.awx.tower_group:
         tower_host: "{{ lookup('env', 'TOWER_HOST') | default('localhost') }}"
         tower_username: "{{ lookup('env', 'TOWER_USERNAME') }}"
@@ -38,4 +48,3 @@
         children:
           - "{{ item.mapped_group }}"
       loop: "{{ inventory_groups }}"
-      ignore_errors: yes
